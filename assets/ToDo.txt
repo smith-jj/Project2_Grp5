@@ -1,0 +1,7 @@
+TO DOs 
+
+App.py file for the Python Flask - See plotly-challange HW
+App.js file for queries of the JSON data - See URLs test file and see other class/ HW activies for d3.json queries 
+
+Index is already created 
+css files already created 
