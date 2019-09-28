@@ -1,0 +1,21 @@
+API Call notes 
+
+baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?
+type=gaponvaracrossyear
+&subject=reading
+&subject=mathematics
+&grade=4
+&subscale=MWPCM (math)
+&subscale=RRPCM (reading)
+&variable=GENDER
+&jurisdiction=NT (National)
+&jurisdiction=NP (National public)
+&jurisdiction=NR (National private)
+&stattype=MN:MN (Mean)
+&Year=2009
+&Year=2017
+
+https://nrcpreview3.naepims.org/NRCDataService/GetAdhocData.aspx?type=data&subject=mathematics&grade=4&subscale=MRPCM&variable=SDRACE%2BGENDER&categoryindex=2%2B1,2%2B2,3%2B1,3%2B2&jurisdiction=NP,CA&stattype=MN%3AMN&Year=2009&StackType=RowThenCol
+
+EXAMPLE URL for API call
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=writing&grade=4&subscale=WRIRP&variable=GENDER&jurisdiction=NP&stattype=MN:MN&Year=2009
