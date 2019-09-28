@@ -1,6 +1,6 @@
 API Call notes 
 
-baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&variable=GENDER&stattype=MN:MN
+baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear
 &subject=reading
 &subject=mathematics
 &grade=4
@@ -15,31 +15,26 @@ baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=d
 &Year=2017
 
 
-EXAMPLE URL 
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
-
-
 
 Gap of Math scoress 2009 vs 2017  (Boys & Girls) - National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
 
 Gap of Math scoress 2009 vs 2017  (Boys & Girls) - Public National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NP&stattype=PC:P1&Year=2017,2009
-
-*Jill Add states for puclic calls 
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NP,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
 
 Gap of Math scoress 2009 vs 2017  (Boys & Girls) - Private National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NR&stattype=PC:P1&Year=2017,2009
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NR,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
+
+
 
 Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NT,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
 
 Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  Public National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NP&stattype=PC:P1&Year=2017,2009
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NP,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
 
-*Jill Add states for puclic calls 
 
 Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  Private National Top 10%
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NR&stattype=PC:P1&Year=2017,2009
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NR,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=PC:P1&Year=2017,2009
 
 
