@@ -1,12 +1,11 @@
 API Call notes 
 
-baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?
-type=gaponvaracrossyear
+baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&variable=GENDER&stattype=MN:MN
 &subject=reading
 &subject=mathematics
 &grade=4
-&subscale=MWPCM (math)
 &subscale=RRPCM (reading)
+&subscale=MWPCM (math)
 &variable=GENDER
 &jurisdiction=NT (National)
 &jurisdiction=NP (National public)
@@ -15,7 +14,32 @@ type=gaponvaracrossyear
 &Year=2009
 &Year=2017
 
-https://nrcpreview3.naepims.org/NRCDataService/GetAdhocData.aspx?type=data&subject=mathematics&grade=4&subscale=MRPCM&variable=SDRACE%2BGENDER&categoryindex=2%2B1,2%2B2,3%2B1,3%2B2&jurisdiction=NP,CA&stattype=MN%3AMN&Year=2009&StackType=RowThenCol
 
-EXAMPLE URL for API call
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=writing&grade=4&subscale=WRIRP&variable=GENDER&jurisdiction=NP&stattype=MN:MN&Year=2009
+EXAMPLE URL 
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
+
+
+
+Gap of Math scoress 2009 vs 2017  (Boys & Girls) - National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
+
+Gap of Math scoress 2009 vs 2017  (Boys & Girls) - Public National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NP&stattype=PC:P1&Year=2017,2009
+
+*Jill Add states for puclic calls 
+
+Gap of Math scoress 2009 vs 2017  (Boys & Girls) - Private National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NR&stattype=PC:P1&Year=2017,2009
+
+Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NT&stattype=PC:P1&Year=2017,2009
+
+Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  Public National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NP&stattype=PC:P1&Year=2017,2009
+
+*Jill Add states for puclic calls 
+
+Gap of Reading scoress 2009 vs 2017  (Boys & Girls) -  Private National Top 10%
+https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=data&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NR&stattype=PC:P1&Year=2017,2009
+
+
