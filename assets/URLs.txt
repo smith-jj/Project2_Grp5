@@ -1,5 +1,6 @@
-API Call notes 
+URLs or API 
 
+LEGEND
 baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear
 &subject=reading
 &subject=mathematics
@@ -10,10 +11,11 @@ baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=s
 &jurisdiction=NT (National)
 &jurisdiction=NP (National public)
 &jurisdiction=NR (National private)
-&stattype=PC:P1 (Mean)
+&stattype=PC:P1 (Top 10%)
+&stattype=PC:P9 (Bottom 90%)
+&stattype=MN:MN (Mean)
 &Year=2009
 &Year=2017
-
 
 
 Gap of Math scoress 2009 vs 2017  (Boys & Girls) - National Top 10%
