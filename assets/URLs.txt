@@ -10,7 +10,7 @@ baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=d
 &jurisdiction=NT (National)
 &jurisdiction=NP (National public)
 &jurisdiction=NR (National private)
-&stattype=MN:MN (Mean)
+&stattype=PC:P1 (Mean)
 &Year=2009
 &Year=2017
 
