@@ -6,20 +6,16 @@ Review documentation and create URLs for API calls of test data for 4th grade st
 
 ## API URL LEGEND
 baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?
-type=sigacrossyear (changes between given years)
-&subject=reading
-&subject=mathematics
-&grade=4
-&subscale=RRPCM (reading)
-&subscale=MWPCM (math)
-&variable=GENDER
-&jurisdiction=NT (National)
-&jurisdiction=NP (National public)
-&jurisdiction=NR (National private)
-(add states after juridicition)
-&stattype=MN:MN (Mean)
-&Year=2009
-&Year=2017
+* type=sigacrossyear (changes between given years)
+* &subject=reading
+* &subject=mathematics
+* &grade=4
+* &subscale=RRPCM (reading)
+* &subscale=MWPCM (math)
+* &variable=GENDER
+* &jurisdiction=NT (National); &jurisdiction=NP (National public); &jurisdiction=NR (National private); (add states after juridicition)
+* &stattype=MN:MN (Mean)
+* &Year=2009, 2017
 
 ## Math URLS - 4th Grade Boys & Girls Math Scores from 2009 and 2017
 * National Mean
