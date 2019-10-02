@@ -45,6 +45,8 @@ For the app.py file:
     * Dash Core Components - https://dash.plot.ly/dash-core-components
     * Graphs Reference - https://dash.plot.ly/dash-core-components/graph
     * DataTable - https://dash.plot.ly/datatable 
-    * 
+    * Interactive Visualizations - https://dash.plot.ly/interactive-graphing
+
+For Thursday, each branch needs to have an app.py file with a rendering visual of one of the above datasets
 
 
