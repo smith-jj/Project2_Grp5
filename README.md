@@ -1,7 +1,6 @@
 # Project2_Grp5
 ## JILL's branch 
 
-
 Review documentation and create URLs for API calls of test data for 4th grade students in US. 
 
 ## API URL LEGEND
@@ -39,10 +38,13 @@ https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossye
 https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NR,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009
 
 
-## Flask App
+## Dashboard 
+For the app.py file:
+* Install dash - https://dash.plot.ly/
+* Review the Tutorial pages on using Dash - https://dash.plot.ly/getting-started 
+    * Dash Core Components - https://dash.plot.ly/dash-core-components
+    * Graphs Reference - https://dash.plot.ly/dash-core-components/graph
+    * DataTable - https://dash.plot.ly/datatable 
+    * 
 
 
-## Javascript 
-
-
-## Dashboard (index.html & main.css)
