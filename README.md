@@ -6,6 +6,8 @@ Review documentation and create URLs for API calls of test data for 4th grade st
 ## API URL LEGEND
 baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?
 * type=sigacrossyear (changes between given years)
+* type=sigacrossjuris (changes betweeen jurisdiction)
+* type= sigacrossvalue (significance gap across variable)
 * &subject=reading
 * &subject=mathematics
 * &grade=4

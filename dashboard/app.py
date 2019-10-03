@@ -9,14 +9,14 @@ import pandas as pd
 
 from plotly import graph_objs as go
 from plotly.graph_objs import *
-from dash.dependencies import Input, Output, State, Event
+from dash.dependencies import Input, Output, State
 
 app = dash.Dash(__name__)
 server = app.server
 app.title = 'NYC Wi-Fi Hotspots'
 
 # API keys and datasets
-mapbox_access_token = 'API KEY HERE'
+mapbox_access_token = 'pk.eyJ1IjoianNvYnNjdXJhIiwiYSI6ImNrMHlpcG9hdjBmd2EzY3AxdGF5YmdiY2YifQ.tkcv8EYCkEHldWcfwfg7ZA'
 map_data = pd.read_csv("nyc-wi-fi-hotspot-locations.csv")
 
 # Selecting only required columns
