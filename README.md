@@ -1,6 +1,4 @@
 # Project2_Grp5
 
-
-10/02
-Current unsolved:
-how to pull API into js, read as JSON and manipulate data, import manipulated data into app.py to create visualizations? 
+app.js - API call, read JSON, manipluate data.
+app.py - import manipluated data, create dynamic visualzations with dash.ly
