@@ -6,8 +6,10 @@ var dataMathNat = d3.json(url_math_nat).then(function(data) {
     // console.log(data);
     var objStr = JSON.stringify(data);
     var obj = JSON.parse(objStr);
-    console.log(obj)
+    // console.log(obj)
 });
+
+console.log(dataMathNat);
 
 function convertArrayOfObjectsToCSV(args) {
     var result, ctr, keys, columnDelimiter, lineDelimiter, data;
