@@ -38,30 +38,44 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/years")
+def years():
+    """Return National Scores data"""
+
+    # Use Pandas to perform the sql query of scores for Male and Females 2009 & 2017
+
+    # Return Jsonified data ()
+
+
+print(national)
+return jsonify(national)
+
 @app.route("/national")
-def national():
+def national(years):
     """Return National Scores data"""
 
     # Use Pandas to perform the sql query
 
 
     # Return Jsonified data ()
+
 print(national)
 return jsonify(national)
 
 
 @app.route("/public")
-def public():
+def public(years):
     """Return Public Scores data."""
 
     # Use Pandas to perform the sql query
 
     # Return Jsonified data ()
+
 print(public)
 return jsonify(public)
 
 @app.route("/private")
-def private():
+def private(years):
     """Return Public Scores data."""
 
     # Use Pandas to perform the sql query

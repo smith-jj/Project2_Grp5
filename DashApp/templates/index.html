@@ -70,43 +70,40 @@
     </div>
 
     <!-- Choropleth Map Section -->
-    <!-- dropdown -->
+    <!-- Map dropdown for subject and year (Math 2009, Reading 2009, Math 2017, Reading 2017)-->
     <select id="dropdown"></select>
 
-    <!-- checkbox to include/exclude downtown (if min or max) -->
-    <label><input type="checkbox" id = "downtown" value = "include" checked>Include Downtown</label>
-
-    <!-- neighborhood and its value -->
+    <!-- State and Scores value -->
     <div id = "tooltip">
-        <h3><span id = "neighborhood">&nbsp;</span></h3>
-        <h5><span id = "datum">&nbsp;</span></h5>
+        <h3><span id = "State">&nbsp;</span></h3>
+        <h5><span id = "Male Scores">&nbsp;</span></h5>
+        <h5><span id = "Female Scores">&nbsp;</span></h5>
     </div>
 
     <!-- map -->
     <div id="block"></div>
     
-    <!-- Meter-->
+    <!-- Metricsgraphic.js Line Graph-->
+    <div class="row">
+      <div class="col-md-6">
+      <div id="line"></div>
+    </div>
+  </div>
+
+<!-- Scatter Plot -->
     <div class="row">
       <div class="col-md-2">
         <div class="well">
           <h5>4th Grader National Test Scores</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-      <div class="col-md-8">
-        <div id="map"></div>
-      </div>
-  </div>
+    </div>
   <div class="row">
       <div class="col-xs-12  col-md-9">
         <div id="scatter">
-          <!-- We append our chart here. -->
         </div>
       </div>
-      <div class="row">
-    <div class="col-md-6">
-      <div id="line"></div>
-    </div>
-  </div>
+      
 
 <!-- Datatable for National Test Scores -->
     <div class="container">
