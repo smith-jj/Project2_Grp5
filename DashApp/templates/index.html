@@ -6,7 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>U.S. Report Card</title>
+  <!-- Style for Choropleth Map-->
+  <style>
 
+        #tooltip {
+            font-family: sans-serif;
+            color: #454545;
+        }
+
+        #dropdown {
+            margin-bottom: 20px;
+            margin-right: 35px;
+        }
+
+        h3, h5 {
+            margin: 0;
+        }
+    </style>    
+    
+  <!-- Script for Choropleth Map -->
+  <script src = "https://feyderm.github.io/d3/d3.js"></script>
+  <script src = "https://feyderm.github.io/js/viridis_colors.js"></script> 
+  <script src = "dropdown_options.js"></script> 
+  
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
 
@@ -23,11 +45,16 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/d3Style.css">
+   <!-- Bootstrap core CSS for Table -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap.css" rel="stylesheet">
   
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+
   
 </head>
 
@@ -41,6 +68,24 @@
         <p>An exploration of Math & Reading test scores for 4th graders in America.</p>
       </div>
     </div>
+
+    <!-- Choropleth Map Section -->
+    <!-- dropdown -->
+    <select id="dropdown"></select>
+
+    <!-- checkbox to include/exclude downtown (if min or max) -->
+    <label><input type="checkbox" id = "downtown" value = "include" checked>Include Downtown</label>
+
+    <!-- neighborhood and its value -->
+    <div id = "tooltip">
+        <h3><span id = "neighborhood">&nbsp;</span></h3>
+        <h5><span id = "datum">&nbsp;</span></h5>
+    </div>
+
+    <!-- map -->
+    <div id="block"></div>
+    
+    <!-- Meter-->
     <div class="row">
       <div class="col-md-2">
         <div class="well">
@@ -63,7 +108,7 @@
     </div>
   </div>
 
-<!-- Data for National Test Scores -->
+<!-- Datatable for National Test Scores -->
     <div class="container">
    <div class="table-responsive">
     <h1 align="center">Dataset for National Test Scores</h1>
@@ -87,36 +132,14 @@
        <!-- &copy; Copyright <strong>Regna</strong>. All Rights Reserved -->
       </div>
       <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-        -->
-        Project 2 designed by Group 5>
+        <center>Project 2 designed by Group 5</center>
       </div>
     </div>
   </footer><!-- #footer -->
 
   <a href="#main" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/counterup/counterup.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
-
-
-
-  <!-- Template Main Javascript File -->
-  <script src="static/js/main.js"></script>
-
-<!-- Bootstrap core JavaScript
+ <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -126,6 +149,7 @@
     <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="js/csv_to_html_table.js"></script>
 
+
     <script type="text/javascript">
       function format_link(link){
         if (link)
@@ -133,8 +157,9 @@
         else
           return "";
       }
+
       CsvToHtmlTable.init({
-        csv_path: 'data/city_data.csv',
+        csv_path: 'DashApp/data/NationalScores.csv',
         element: 'table-container', 
         allow_download: true,
         csv_options: {separator: ',', delimiter: '"'},
@@ -142,6 +167,5 @@
         custom_formatting: [[4, format_link]]
       });
     </script>
-
-</body>
+  </body>
 </html>
