@@ -1,5 +1,12 @@
-// EX CODE for Line Graph showing positive and negavtive 
-d3.csv('GAPDATA.json', function(data) {
+//Create charts for HTML Page using the Flask App scraped data 
+function buildCharts(national)
+
+//======================================================================
+// Create line graph using MetricsGraphics.js library 
+// EX CODE for line graph showing neg and pos changes by state
+// Would create dropdown tool to change graph by reaing and math, or create second line graph for reading or math
+//======================================================================
+d3.json('/national', function(data) {
 
     var max = d3.max(data, function(d) {
         return d.value;
@@ -16,8 +23,8 @@ d3.csv('GAPDATA.json', function(data) {
 
     data = MG.convert.date(data, 'date');
     MG.data_graphic({
-        title: "Flipped area under Y value baseline",
-        description: "This is a line chart having a flipped area under a Y value baseline",
+        title: "Percent Change in Test Scores",
+        description: "This is a line chart shows the postive or negative change in the test scores from 2009 vs 2017",
         data: data,
         width: 600,
         height: 200,
@@ -31,7 +38,144 @@ d3.csv('GAPDATA.json', function(data) {
 });
 
 // =========================================================== // 
+// Choropleth Map EX CODE 
 // ==========================================================// 
+// populate drop-down
+d3.select("#dropdown")
+    .selectAll("option")
+    .data(dropdown_options)
+    .enter()
+    .append("option")
+    .attr("value", function(option) { return option.value; })
+    .text(function(option) { return option.text; });
+
+// initial dataset on load
+var selected_dataset = "empl13";
+
+var w = 700,
+    h = 650;
+
+var svg = d3.select("#block")
+    .append("svg")
+    .attr("height", h)
+    .attr("width", w);
+
+var projection = d3.geo.mercator()
+    .center([-76.6180827, 39.323953])
+    .scale([140000])
+    .translate([270, 165]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+// first of two scales for linear fill; ref [1]
+var fill_viridis = d3.scale.linear()
+    .domain(d3.range(0, 1, 1.0 / (viridis_colors.length - 1)))
+    .range(viridis_colors);
+
+// second of two scales for linear fill 
+var norm_fill = d3.scale.linear()
+    .range([0, 1]);
+
+var geojson = "https://feyderm.github.io/data/Workforce and Economic Development (2010-2013) - Shape.geojson";
+
+d3.json(geojson, function(json) {
+
+    plot = svg.selectAll("path")
+        .data(json.features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("stroke", "#808080")
+        .attr("fill", "#b3b3b3")
+        .call(updateFill, selected_dataset)
+        .on("mouseover", function(d) { displayData(d); })
+        .on("mouseout", hideData);
+});
+
+// dropdown dataset selection
+var dropDown = d3.select("#dropdown");
+
+dropDown.on("change", function() {
+
+    // newly selected dataset includes downtown
+    d3.select("#downtown")
+        .property("checked", true);
+
+    checked = true;
+
+    selected_dataset = d3.event.target.value;
+
+    plot.call(updateFill, selected_dataset)
+
+});
+
+// checkbox to include/exclude downtown
+var checkbox = d3.select("#downtown");
+
+checkbox.on("change", function() {
+
+    checked = !checked;
+
+    if (checked == false) {
+        plot.call(updateFillxDt, selected_dataset);
+    } else {
+        plot.call(updateFill, selected_dataset);
+    }
+});
+
+function displayData(d) {
+
+    d3.select("#neighborhood")
+        .text(d.properties.csa2010)
+
+    d3.select("#datum")
+        .text(parseFloat(d.properties[selected_dataset]).toFixed(2));
+}
+
+function hideData() {
+
+    d3.select("#neighborhood")
+        .text("\u00A0");
+
+    d3.select("#datum")
+        .text("\u00A0");
+}
+
+function updateFill(selection, selected_dataset) {
+
+    var d_extent = d3.extent(selection.data(), function(d) {
+        return parseFloat(d.properties[selected_dataset]);
+    });
+
+    rescaleFill(selection, d_extent);
+}
+
+function updateFillxDt(selection, selected_dataset) {
+
+    var d_wo_downtown = selection.data()
+        .filter(function(d) {
+            return d.properties.csa2010 != "Downtown/Seton Hill";
+        });
+
+    d_extent_wo_downtown = d3.extent(d_wo_downtown, function(d) {
+        return parseFloat(d.properties[selected_dataset]);
+    });
+
+    rescaleFill(selection, d_extent_wo_downtown)
+}
+
+function rescaleFill(selection, d_extent) {
+
+    norm_fill.domain(d_extent)
+
+    selection.transition()
+        .duration(700)
+        .attr("fill", function(d) {
+            var datum = parseFloat(d.properties[selected_dataset]);
+            return fill_viridis(norm_fill(datum));
+        });
+}
 // Choropleth Map - Need to toggle between Reading and Math & 2009 vs 2017
 Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv', function(err, rows) {
     function unpack(rows, key) {
@@ -105,75 +249,63 @@ function buildMetadata(sample) {
     });
 }
 
+// =================================================================================
+// Scatter plot EX Code
+// ==================================================================================
 function buildCharts(sample) {
 
     // @TODO: Use `d3.json` to Fetch the Sample Data for the Plots
     d3.json(`/samples/${sample}`).then((data) => {
-        // @TODO: Build a Bubble Chart Using the Sample Data
-        // @TODO: Build a Pie Chart
-        let bubbleLayout = {
-            margin: { t: 0 },
-            hovermode: "closests",
-            xaxis: { title: "OTU ID" }
-        }
+                // @TODO: Build a Bubble Chart Using the Sample Data
+                // @TODO: Build a Pie Chart
+                let bubbleLayout = {
+                    margin: { t: 0 },
+                    hovermode: "closests",
+                    xaxis: { title: "OTU ID" }
+                }
 
-        let bubbleData = [{
-            x: data.otu_ids,
-            y: data.sample_values,
-            text: data.otu_labels,
-            mode: "markers",
-            marker: {
-                size: data.sample_values,
-                color: data.otu_ids,
-                colorscale: "Earth"
-            }
-        }]
+                let bubbleData = [{
+                    x: data.otu_ids,
+                    y: data.sample_values,
+                    text: data.otu_labels,
+                    mode: "markers",
+                    marker: {
+                        size: data.sample_values,
+                        color: data.otu_ids,
+                        colorscale: "Earth"
+                    }
+                }]
 
-        Plotly.plot("bubble", bubbleData, bubbleLayout);
+                Plotly.plot("bubble", bubbleData, bubbleLayout);
 
-        // HINT: Use slice() to Grab the Top 10 sample_values,
-        // otu_ids, and otu_labels (10 Each)
-        let pieData = [{
-            values: data.sample_values.slice(0, 10),
-            labels: data.otu_ids.slice(0, 10),
-            hovertext: data.otu_labels.slice(0, 10),
-            hoverinfo: "hovertext",
-            type: "pie"
-        }];
+                //==============================================================================
+                // Code to initialize browser
+                // ============================================================================
+                function init() {
+                    // Grab a Reference to the Dropdown Select Element
+                    var selector = d3.select("#selDataset");
 
-        let pieLayout = {
-            margin: { t: 0, l: 0 }
-        };
+                    // Use the List of Sample Names to Populate the Select Options
+                    d3.json("/names").then((sampleNames) => {
+                        sampleNames.forEach((sample) => {
+                            selector
+                                .append("option")
+                                .text(sample)
+                                .property("value", sample);
+                        });
 
-        Plotly.plot("pie", pieData, pieLayout)
-    })
-}
+                        // Use the First Sample from the List to Build Initial Plots
+                        const firstSample = sampleNames[0];
+                        buildCharts(firstSample);
+                        buildMetadata(firstSample);
+                    });
+                }
 
-function init() {
-    // Grab a Reference to the Dropdown Select Element
-    var selector = d3.select("#selDataset");
+                function optionChanged(newSample) {
+                    // Fetch New Data Each Time a New Sample is Selected
+                    buildCharts(newSample);
+                    buildMetadata(newSample);
+                }
 
-    // Use the List of Sample Names to Populate the Select Options
-    d3.json("/names").then((sampleNames) => {
-        sampleNames.forEach((sample) => {
-            selector
-                .append("option")
-                .text(sample)
-                .property("value", sample);
-        });
-
-        // Use the First Sample from the List to Build Initial Plots
-        const firstSample = sampleNames[0];
-        buildCharts(firstSample);
-        buildMetadata(firstSample);
-    });
-}
-
-function optionChanged(newSample) {
-    // Fetch New Data Each Time a New Sample is Selected
-    buildCharts(newSample);
-    buildMetadata(newSample);
-}
-
-// Initialize the Dashboard
-init();
+                // Initialize the Dashboard
+                init();
