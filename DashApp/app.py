@@ -47,11 +47,11 @@ def years():
     # Return Jsonified data ()
 
 
-print(national)
-return jsonify(national)
+print(years)
+return jsonify(years)
 
-@app.route("/national")
-def national(years):
+@app.route("/male_scores")
+def male_scores(years):
     """Return National Scores data"""
 
     # Use Pandas to perform the sql query
@@ -59,30 +59,21 @@ def national(years):
 
     # Return Jsonified data ()
 
-print(national)
-return jsonify(national)
+print(male_scores)
+return jsonify(male_scores)
 
 
-@app.route("/public")
-def public(years):
+@app.route("/female_scores")
+def female_scores(years):
     """Return Public Scores data."""
 
     # Use Pandas to perform the sql query
 
     # Return Jsonified data ()
 
-print(public)
-return jsonify(public)
 
-@app.route("/private")
-def private(years):
-    """Return Public Scores data."""
-
-    # Use Pandas to perform the sql query
-
-    # Return Jsonified data ()
-print(private)
-return jsonify(private)
+print(female_scores)
+return jsonify(female_scores)
 
 
 
