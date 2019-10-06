@@ -2,143 +2,230 @@
 // EX Code Choropleth Map - assigned to Syed 
 // Use either CSV files or Flask queries from app.py file 
 // ==========================================================================
-// populate drop-down for Map
-d3.select("#dropdown")
-    .selectAll("option")
-    .data(dropdown_options)
-    .enter()
-    .append("option")
-    .attr("value", function(option) { return option.value; })
-    .text(function(option) { return option.text; });
+d3.csv("NationalScores.csv", function(err, data) {
 
-// initial dataset on load
-var selected_dataset = "empl13";
+    var config = { "color1": "#d3e5ff", "color2": "#08306B", "stateDataColumn": "state_or_territory", "defaultValue": "census_population_april_1_2010_number", "state": "state_or_territory" };
 
-var w = 700,
-    h = 650;
+    var WIDTH = 800,
+        HEIGHT = 500;
 
-var svg = d3.select("#block")
-    .append("svg")
-    .attr("height", h)
-    .attr("width", w);
+    var COLOR_COUNTS = 9;
 
-var projection = d3.geo.mercator()
-    .center([-76.6180827, 39.323953])
-    .scale([140000])
-    .translate([270, 165]);
+    var SCALE = 0.7;
 
-var path = d3.geo.path()
-    .projection(projection);
+    function Interpolate(start_year, end_year, gender, avg_2009_math, avg_2017_math, avg_2009_read, avg_2017_read) {
+        var s = start_year,
+            e = end_year,
 
-// first of two scales for linear fill; ref [1]
-var fill_viridis = d3.scale.linear()
-    .domain(d3.range(0, 1, 1.0 / (viridis_colors.length - 1)))
-    .range(viridis_colors);
-
-// second of two scales for linear fill 
-var norm_fill = d3.scale.linear()
-    .range([0, 1]);
-
-var geojson = "https://feyderm.github.io/data/Workforce and Economic Development (2010-2013) - Shape.geojson";
-
-d3.json(geojson, function(json) {
-
-    plot = svg.selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .attr("stroke", "#808080")
-        .attr("fill", "#b3b3b3")
-        .call(updateFill, selected_dataset)
-        .on("mouseover", function(d) { displayData(d); })
-        .on("mouseout", hideData);
-});
-
-// dropdown dataset selection
-var dropDown = d3.select("#dropdown");
-
-dropDown.on("change", function() {
-
-    // newly selected dataset includes downtown
-    d3.select("#downtown")
-        .property("checked", true);
-
-    checked = true;
-
-    selected_dataset = d3.event.target.value;
-
-    plot.call(updateFill, selected_dataset)
-
-});
-
-// checkbox to include/exclude downtown
-var checkbox = d3.select("#downtown");
-
-checkbox.on("change", function() {
-
-    checked = !checked;
-
-    if (checked == false) {
-        plot.call(updateFillxDt, selected_dataset);
-    } else {
-        plot.call(updateFill, selected_dataset);
+            return
     }
+
+    function Color(_r, _g, _b) {
+        var r, g, b;
+        var setColors = function(_r, _g, _b) {
+            r = _r;
+            g = _g;
+            b = _b;
+        };
+
+        setColors(_r, _g, _b);
+        this.getColors = function() {
+            var colors = {
+                r: r,
+                g: g,
+                b: b
+            };
+            return colors;
+        };
+    }
+
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    function valueFormat(d) {
+        if (d > 1000000000) {
+            return Math.round(d / 1000000000 * 10) / 10 + "B";
+        } else if (d > 1000000) {
+            return Math.round(d / 1000000 * 10) / 10 + "M";
+        } else if (d > 1000) {
+            return Math.round(d / 1000 * 10) / 10 + "K";
+        } else {
+            return d;
+        }
+    }
+
+    var fields = Object.keys(data[0]);
+    var option_select = d3.select('#selectors').append("select")
+        .attr("class", "option-select");
+    for (var i = 0; i < fields.length; i++) {
+        if (fields[i] !== config.state) {
+            var opt = option_select.append("option")
+                .attr("value", fields[i])
+                .text(fields[i]);
+
+            if (fields[i] === config.defaultValue) {
+                opt.attr("selected", "true");
+            }
+        }
+    }
+
+    var COLOR_FIRST = config.color1,
+        COLOR_LAST = config.color2;
+
+    var rgb = hexToRgb(COLOR_FIRST);
+
+    var COLOR_START = new Color(rgb.r, rgb.g, rgb.b);
+
+    rgb = hexToRgb(COLOR_LAST);
+    var COLOR_END = new Color(rgb.r, rgb.g, rgb.b);
+
+    var width = WIDTH,
+        height = HEIGHT;
+
+    var startColors = COLOR_START.getColors(),
+        endColors = COLOR_END.getColors();
+
+    var colors = [];
+
+    for (var i = 0; i < COLOR_COUNTS; i++) {
+        var r = Interpolate(startColors.r, endColors.r, COLOR_COUNTS, i);
+        var g = Interpolate(startColors.g, endColors.g, COLOR_COUNTS, i);
+        var b = Interpolate(startColors.b, endColors.b, COLOR_COUNTS, i);
+        colors.push(new Color(r, g, b));
+    }
+
+    var quantize = d3.scale.quantize()
+        .domain([0, 1.0])
+        .range(d3.range(COLOR_COUNTS).map(function(i) { return i }));
+
+    var path = d3.geo.path();
+
+    var svg = d3.select("#canvas-svg").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    d3.tsv("https://s3-us-west-2.amazonaws.com/vida-public/geo/us-state-names.tsv", function(error, names) {
+        d3.json("https://s3-us-west-2.amazonaws.com/vida-public/geo/us.json", function(error, us) {
+
+            var name_id_map = {};
+            var id_name_map = {};
+
+            for (var i = 0; i < names.length; i++) {
+                name_id_map[names[i].name] = names[i].id;
+                id_name_map[names[i].id] = names[i].name;
+            }
+
+            var dataMap = {};
+
+            data.forEach(function(d) {
+                if (!dataMap[d[config.state]]) {
+                    dataMap[d[config.state]] = {};
+                }
+
+                for (var i = 0; i < Object.keys(data[0]).length; i++) {
+                    if (Object.keys(data[0])[i] !== config.state) {
+                        dataMap[d[config.state]][Object.keys(data[0])[i]] = +d[Object.keys(data[0])[i]];
+                    }
+                }
+            });
+
+            function drawMap(dataColumn) {
+                var valueById = d3.map();
+
+                data.forEach(function(d) {
+                    var id = name_id_map[d[config.state]];
+                    valueById.set(id, +d[dataColumn]);
+                });
+
+                quantize.domain([d3.min(data, function(d) { return +d[dataColumn] }),
+                    d3.max(data, function(d) { return +d[dataColumn] })
+                ]);
+
+                svg.append("g")
+                    .attr("class", "states-choropleth")
+                    .selectAll("path")
+                    .data(topojson.feature(us, us.objects.states).features)
+                    .enter().append("path")
+                    .attr("transform", "scale(" + SCALE + ")")
+                    .style("fill", function(d) {
+                        if (valueById.get(d.id)) {
+                            var i = quantize(valueById.get(d.id));
+                            var color = colors[i].getColors();
+                            return "rgb(" + color.r + "," + color.g +
+                                "," + color.b + ")";
+                        } else {
+                            return "";
+                        }
+                    })
+                    .attr("d", path)
+                    .on("mousemove", function(d) {
+                        var html = "";
+
+                        html += "<div class=\"tooltip_kv\">";
+                        html += "<span class=\"tooltip_key\">";
+                        html += id_name_map[d.id];
+                        html += "</span>";
+                        html += "</div>";
+
+                        for (var i = 1; i < Object.keys(data[0]).length; i++) {
+                            html += "<div class=\"tooltip_kv\">";
+                            html += "<span class='tooltip_key'>";
+                            html += Object.keys(data[0])[i];
+                            html += "</span>";
+                            html += "<span class=\"tooltip_value\">";
+                            html += valueFormat(dataMap[id_name_map[d.id]][Object.keys(data[0])[i]]);
+                            html += "";
+                            html += "</span>";
+                            html += "</div>";
+                        }
+
+                        $("#tooltip-container").html(html);
+                        $(this).attr("fill-opacity", "0.7");
+                        $("#tooltip-container").show();
+
+                        var coordinates = d3.mouse(this);
+
+                        var map_width = $('.states-choropleth')[0].getBoundingClientRect().width;
+
+                        if (d3.event.layerX < map_width / 2) {
+                            d3.select("#tooltip-container")
+                                .style("top", (d3.event.layerY + 15) + "px")
+                                .style("left", (d3.event.layerX + 15) + "px");
+                        } else {
+                            var tooltip_width = $("#tooltip-container").width();
+                            d3.select("#tooltip-container")
+                                .style("top", (d3.event.layerY + 15) + "px")
+                                .style("left", (d3.event.layerX - tooltip_width - 30) + "px");
+                        }
+                    })
+                    .on("mouseout", function() {
+                        $(this).attr("fill-opacity", "1.0");
+                        $("#tooltip-container").hide();
+                    });
+
+                svg.append("path")
+                    .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+                    .attr("class", "states")
+                    .attr("transform", "scale(" + SCALE + ")")
+                    .attr("d", path);
+            }
+
+            drawMap(config.defaultValue);
+
+            option_select.on("change", function() {
+                drawMap($("#selectors").find(".option-select").val());
+            });
+
+
+        });
+    });
 });
-
-function displayData(d) {
-
-    d3.select("#neighborhood")
-        .text(d.properties.csa2010)
-
-    d3.select("#datum")
-        .text(parseFloat(d.properties[selected_dataset]).toFixed(2));
-}
-
-function hideData() {
-
-    d3.select("#neighborhood")
-        .text("\u00A0");
-
-    d3.select("#datum")
-        .text("\u00A0");
-}
-
-function updateFill(selection, selected_dataset) {
-
-    var d_extent = d3.extent(selection.data(), function(d) {
-        return parseFloat(d.properties[selected_dataset]);
-    });
-
-    rescaleFill(selection, d_extent);
-}
-
-function updateFillxDt(selection, selected_dataset) {
-
-    var d_wo_downtown = selection.data()
-        .filter(function(d) {
-            return d.properties.csa2010 != "Downtown/Seton Hill";
-        });
-
-    d_extent_wo_downtown = d3.extent(d_wo_downtown, function(d) {
-        return parseFloat(d.properties[selected_dataset]);
-    });
-
-    rescaleFill(selection, d_extent_wo_downtown)
-}
-
-function rescaleFill(selection, d_extent) {
-
-    norm_fill.domain(d_extent)
-
-    selection.transition()
-        .duration(700)
-        .attr("fill", function(d) {
-            var datum = parseFloat(d.properties[selected_dataset]);
-            return fill_viridis(norm_fill(datum));
-        });
-}
-
 
 // ============================================================================
 // Metricsgraphic.js Line Graph EX CODE - Sarah assisgned to visual
