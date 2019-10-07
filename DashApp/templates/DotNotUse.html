@@ -9,41 +9,57 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
+<!-- Main Dashobard Page -->
 <body>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
+      <div class="col-md-12 jumbotron text-center" >
         <h1>National Report Card</h1>
         <p>An exploration of Math & Reading test scores for 4th graders in America.</p>
       </div>
     </div>
-    <!--USes Flask App to pull in samples of State Data -->
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>SELECT State:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">State MetaData</h3>
-          </div>
-          <div id="sample-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <!-- Creates bubble chart for state data -->
-  <div class="row">
-    <div class="col-md-12">
-      <div id="bubble"></div>
-    </div>
-  </div>
 
-  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <div
+    <script type="text/javascript" scr="static/js/test.js"></scrip>
+
+  <!-- Choropleth Map Section -->
+    <!-- dropdown -->    
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="well">
+      <div id="selectors"></div>
+
+      <div id="tooltip-container"></div>
+    <!-- SVG for map SEE app.js-->
+    <!--<div id="canvas-svg"></div>
+    </div> -->
+
+    <!-- Metricsgraphic.js Line Graph-->
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="well">
+          <h5>ADD TITLE </h5>
+      <div id="line"></div>
+    </div>
+  </div> -->
+
+<!-- Scatter Plot -->
+   <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="well">
+          <h5>ADD TITLE </h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        <div id="scatter">
+        </div>
+      </div> -->
+      
+
+<!-- Datatable for National Test Scores -->
+
+
+  </div>
+  </div>
 
 <!--==========================
     Footer
@@ -65,6 +81,5 @@
   </footer>
   <!-- END FOOTER -->
 
-</body>
-
+  </body>
 </html>

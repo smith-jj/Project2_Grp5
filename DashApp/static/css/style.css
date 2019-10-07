@@ -3,12 +3,6 @@
     border: 1px solid #e3e3e3;
 }
 
-.jumbotron {
-    background-image: url('img/header1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 
 /* stylesheet for your Choropleth graph */
 

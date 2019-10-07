@@ -27,9 +27,7 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-NationalScores = Base.classes.FILENAME
-PrivateScores = Base.classes.FILENAME
-PublicScores = Base.classes.FILENAME
+NationalScores = Base.classes.NationalScores
 
 
 @app.route("/")
@@ -38,42 +36,40 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/years")
-def years():
-    """Return National Scores data"""
+@app.route("/states")
+def states():
+    """Return list of states"""
 
-    # Use Pandas to perform the sql query of scores for Male and Females 2009 & 2017
-
-    # Return Jsonified data ()
-
-
-print(years)
-return jsonify(years)
-
-@app.route("/male_scores")
-def male_scores(years):
-    """Return National Scores data"""
-
+    # Use Pandas to perform the sql query of states
     # Use Pandas to perform the sql query
+    stmt = db.session.query(states).statement
+    df = pd.read_sql_query(stmt, db.session.bind)
+
+    # Return a list of the column names (sample names)
+    return jsonify(list(df.columns)[2:])
+
+    # Return Jsonified data ()
+
+@app.route("/start_year")
+def male_scores(states):
+    """Return Math & Readingtest scores from 2009"""
+
+    # perform the sql query for test scores from 2009
 
 
     # Return Jsonified data ()
 
-print(male_scores)
-return jsonify(male_scores)
 
+@app.route("/end_eand")
+def end_year(states):
+    """Return Math & Reading test scores from 2017"""
 
-@app.route("/female_scores")
-def female_scores(years):
-    """Return Public Scores data."""
-
-    # Use Pandas to perform the sql query
+    # perform the sql query for test scores from 2017
 
     # Return Jsonified data ()
 
 
-print(female_scores)
-return jsonify(female_scores)
+
 
 
 
