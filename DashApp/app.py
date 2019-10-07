@@ -71,7 +71,5 @@ def end_year(states):
 
 
 
-
-
 if __name__ == "__main__":
     app.run()
