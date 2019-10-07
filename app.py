@@ -42,43 +42,84 @@ def states():
 
     # Use Pandas to perform the sql query of states
     # Use Pandas to perform the sql query
-    stmt = db.session.query(states).statement
+    stmt = db.session.query(NationalScores).statement
     df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (sample names)
-    return jsonify(list(df.columns)[2:])
+    return jsonify(list(df.columns)[4:])
 
     # Return Jsonified data ()
 
-@app.route("/start_year/<states>")
+@app.route("/math/<states>")
 def male_scores(states):
-    """Return Math & Readingtest scores from 2009"""
+    """Return Math test scores for 2009 and 2017 and percent change"""
 
-    # perform the sql query for test scores from 2009
-    # avg_2009_math, avg_2009_read
+    # perform the sql query for math test scores comparison
+    # avg_2009_math, avg_2017_math, avg_math_perchg
+    sel = [
+        NationalScores.start_year,
+        NationalScores.end_year,
+        NationalScores.subject,
+        NationalScores.grade,
+        NationalScores.state,
+        NationalScores.gender,
+        NationalScores.avg_2009_math,
+        NationalScores.avg_2017_math,
+        NationalScores.avg_math_perchg,
+    ]
 
+    results = db.session.query(*sel).filter(NationalScores.state == state).all()
+
+    # Create a dictionary entry for each row of math data information
+    math = {}
+    for result in results:
+        NationalScores["start_year"] = result[0]
+        NationalScores["end_year"] = result[1]
+        NationalScores["subject"] = result[2]
+        NationalScores["grade"] = result[3]
+        NationalScores["avg_2009_math"] = result[4]
+        NationalScores["avg_2017_math"] = result[5]
+        NationalScores["avg_math_perchg"] = result[6]
+
+    print(math)
+    return jsonify(sample_metadata)
 
     # Return Jsonified data ()
 
 
-@app.route("/end_eand/<states>")
-def end_year(states):
-    """Return Math & Reading test scores from 2017"""
+@app.route("/read/<states>")
+def male_scores(states):
+    """Return Read test scores for 2009 and 2017 and percent change"""
 
-    # perform the sql query for test scores from 2017
-    # avg_2017_math, avg_2017_read
+    # perform the sql query for read test scores comparison
+    # avg_2009_read, avg_2017_read, avg_read_perchg
+    sel = [
+        NationalScores.start_year,
+        NationalScores.end_year,
+        NationalScores.subject,
+        NationalScores.grade,
+        NationalScores.state,
+        NationalScores.gender,
+        NationalScores.avg_2009_read,
+        NationalScores.avg_2017_read,
+        NationalScores.avg_read_perchg,
+    ]
 
-    # Return Jsonified data ()
+    results = db.session.query(*sel).filter(NationalScores.state == state).all()
 
+    # Create a dictionary entry for each row of math data information
+    math = {}
+    for result in results:
+        NationalScores["start_year"] = result[0]
+        NationalScores["end_year"] = result[1]
+        NationalScores["subject"] = result[2]
+        NationalScores["grade"] = result[3]
+        NationalScores["avg_2009_read"] = result[4]
+        NationalScores["avg_2017_read"] = result[5]
+        NationalScores["avg_read_perchg"] = result[6]
 
-@app.route("/gap")
-def gap(states):
-    """Return Math & Reading test scores from 2017"""
-
-    # perform the sql query for the gap in math and reading scores 
-    # avg_math_perchg, avg_read_perchg
-
-    # Return Jsonified data ()
+    print(math)
+    return jsonify(sample_metadata)
 
 if __name__ == "__main__":
     app.run()
