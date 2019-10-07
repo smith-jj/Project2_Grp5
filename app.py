@@ -1,48 +1,84 @@
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+import os
+
 import pandas as pd
-import plotly.graph_objs as go
+import numpy as np
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+from flask import Flask, jsonify, render_template
+from flask_sqlalchemy import SQLAlchemy
 
-df = pd.read_csv(
-    'https://gist.githubusercontent.com/chriddyp/' +
-    '5d1ea79569ed194d432e56108a04d188/raw/' +
-    'a9f9e8076b837d541398e999dcbac2b2826a81f8/'+
-    'gdp-life-exp-2007.csv')
+app = Flask(__name__)
 
 
-app.layout = html.Div([
-    dcc.Graph(
-        id='life-exp-vs-gdp',
-        figure={
-            'data': [
-                go.Scatter(
-                    x=df[df['continent'] == i]['gdp per capita'],
-                    y=df[df['continent'] == i]['life expectancy'],
-                    text=df[df['continent'] == i]['country'],
-                    mode='markers',
-                    opacity=0.7,
-                    marker={
-                        'size': 15,
-                        'line': {'width': 0.5, 'color': 'white'}
-                    },
-                    name=i
-                ) for i in df.continent.unique()
-            ],
-            'layout': go.Layout(
-                xaxis={'type': 'log', 'title': 'GDP Per Capita'},
-                yaxis={'title': 'Life Expectancy'},
-                margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-                legend={'x': 0, 'y': 1},
-                hovermode='closest'
-            )
-        }
-    )
-])
+#################################################
+# Database Setup
+#################################################
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/NationalReportCard.sqlite"
+db = SQLAlchemy(app)
+
+# reflect an existing database into a new model
+Base = automap_base()
+# reflect the tables
+Base.prepare(db.engine, reflect=True)
+
+# Save references to each table
+NationalScores = Base.classes.NationalScores
+
+
+@app.route("/")
+def index():
+    """Return the homepage."""
+    return render_template("index.html")
+
+
+@app.route("/states")
+def states():
+    """Return list of states"""
+
+    # Use Pandas to perform the sql query of states
+    # Use Pandas to perform the sql query
+    stmt = db.session.query(states).statement
+    df = pd.read_sql_query(stmt, db.session.bind)
+
+    # Return a list of the column names (sample names)
+    return jsonify(list(df.columns)[2:])
+
+    # Return Jsonified data ()
+
+@app.route("/start_year/<states>")
+def male_scores(states):
+    """Return Math & Readingtest scores from 2009"""
+
+    # perform the sql query for test scores from 2009
+    # avg_2009_math, avg_2009_read
+
+
+    # Return Jsonified data ()
+
+
+@app.route("/end_eand/<states>")
+def end_year(states):
+    """Return Math & Reading test scores from 2017"""
+
+    # perform the sql query for test scores from 2017
+    # avg_2017_math, avg_2017_read
+
+    # Return Jsonified data ()
+
+
+@app.route("/gap")
+def gap(states):
+    """Return Math & Reading test scores from 2017"""
+
+    # perform the sql query for the gap in math and reading scores 
+    # avg_math_perchg, avg_read_perchg
+
+    # Return Jsonified data ()
+
+if __name__ == "__main__":
+    app.run()
