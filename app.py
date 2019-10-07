@@ -11,6 +11,8 @@ from sqlalchemy import create_engine
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 app = Flask(__name__)
 
 
@@ -51,7 +53,7 @@ def states():
     # Return Jsonified data ()
 
 @app.route("/math/<states>")
-def male_scores(states):
+def male_scores(state):
     """Return Math test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for math test scores comparison
@@ -88,7 +90,7 @@ def male_scores(states):
 
 
 @app.route("/read/<states>")
-def male_scores(states):
+def male_scores(state):
     """Return Read test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for read test scores comparison
