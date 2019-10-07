@@ -50,26 +50,35 @@ def states():
 
     # Return Jsonified data ()
 
-@app.route("/start_year")
+@app.route("/start_year/<states>")
 def male_scores(states):
     """Return Math & Readingtest scores from 2009"""
 
     # perform the sql query for test scores from 2009
+    # avg_2009_math, avg_2009_read
 
 
     # Return Jsonified data ()
 
 
-@app.route("/end_eand")
+@app.route("/end_eand/<states>")
 def end_year(states):
     """Return Math & Reading test scores from 2017"""
 
     # perform the sql query for test scores from 2017
+    # avg_2017_math, avg_2017_read
 
     # Return Jsonified data ()
 
 
+@app.route("/gap")
+def gap(states):
+    """Return Math & Reading test scores from 2017"""
 
+    # perform the sql query for the gap in math and reading scores 
+    # avg_math_perchg, avg_read_perchg
+
+    # Return Jsonified data ()
 
 if __name__ == "__main__":
     app.run()
