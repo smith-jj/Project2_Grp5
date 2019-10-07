@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Project 2</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Bootstrap core CSS -->
+  <!-- Bootstrap NavBar CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
+  <!-- Bootstrap NavBar CSS -->
   <link href="css/modern-business.css" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+  <!-- Bootstrap Table CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/dataTables.bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
@@ -51,34 +51,49 @@
         <p>Explore the average math and reading test scores for 4th grade student in each state against the National Average.</p>
       </div>
     </div>
-    <!--USes Flask App to pull in samples of State Data -->
-    <div class="row">
-      <div class="col-md-2">
-        <img src="DashApp/img/reportcard.png" alt="Report Card">
-        </div>
-      </div>
+    </div>
+  </div>
+  <!-- Start Metadata Section -->
+  <!-- 2009 Metadata -->
     <div class="row">
       <div class="col-md-4">
         <div class="well">
           <h5>SELECT State:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          <select id="selDataset1" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">State MetaData</h3>
+            <h3 class="panel-title">2009 State MetaData</h3>
           </div>
-          <div id="sample-metadata" class="panel-body"></div>
+          <div id="state-metadata1" class="panel-body"></div>
         </div>
       </div>
-      <!-- Creates bubble chart for state data -->
-  <div class="row">
-    <div class="col-md-12">
-      <div id="bubble"></div>
+      <!-- Creates Bar Chart for 2009 Stats by State -->
+      <div class="row">
+        <div class="col-md-12">
+          <div id="bar1"></div>
+        </div>
+      </div>
+      <!-- 2017 Metadata -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="well">
+          <h5>SELECT State:</h5>
+          <select id="selDataset2" onchange="optionChanged(this.value)"></select>
+          </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">2017 State MetaData</h3>
+          </div>
+          <div id="state-metadata2" class="panel-body"></div>
+        </div>
+      </div>
+    <!-- Creates Bar Chart for 2017 Stats by State -->
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bar2"></div>
+      </div>
     </div>
-  </div>
-
-  <!-- Metericgraph for Gaps -->
- 
 
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
@@ -97,7 +112,6 @@
 
     <div class="container">
       <div class="copyright">
-       <!-- &copy; Copyright <strong>Regna</strong>. All Rights Reserved -->
       </div>
       <div class="credits">
         <center>Project 2 designed by Group 5</center>
