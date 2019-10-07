@@ -1,44 +1,7 @@
-// ============================================================================
-// Metricsgraphic.js Line Graph EX CODE @ Sarah assisgned to visual
-// Use National Gap data - query from flask app
-// Need two Charts Math & Reading 
-// ===========================================================================
-function buildLine(dataname) {
-    console.log(dataname);
-    d3.json('/gap/<states>', function(data) {
-        var max = d3.max(data, function(d) {
-            return d.value;
-        });
-        var min = d3.min(data, function(d) {
-            return d.value;
-        });
-
-        var offsetForNegativeValues = ((max - min) / 1.75);
-
-        for (var i = 0; i < data.length; i++) {
-            data[i].value = (data[i].value - offsetForNegativeValues) / 1000000;
-        }
-
-        data = MG.convert.date(data, 'date');
-        MG.data_graphic({
-            title: "Percent Change of Scores ",
-            description: "Gap of score changes by state from 2009 to 2017",
-            data: data,
-            width: 600,
-            height: 200,
-            right: 40,
-            area: true,
-            flip_area_under_y_value: 0,
-            target: document.getElementById('area_flipped_users_gain_loss'),
-            x_accessor: 'date',
-            y_accessor: 'value'
-        });
-    });
-
     // =================================================================================
-    // Scatter plot EX Code - Not assisgned 
+    // Bar graphs 
     // ==================================================================================
-    function buildScatter(dataname) {
+    function buildBar(dataname) {
 
         // @TODO: Use `d3.json` to Fetch the Route Data for the plot
         d3.json(`/ROUTE/${dataname}`).then((data) => {
