@@ -54,13 +54,14 @@
     </div>
   </div>
   <!-- Start Metadata Section -->
-  <!-- 2009 Metadata -->
+
     <div class="row">
       <div class="col-md-4">
         <div class="well">
           <h5>SELECT State:</h5>
-          <select id="selDataset1" onchange="optionChanged(this.value)"></select>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
+        <!-- Math  Metadata -->
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Math MetaData</h3>
@@ -68,19 +69,12 @@
           <div id="state-metadata1" class="panel-body"></div>
         </div>
       </div>
-      <!-- Creates Bar Chart for 2009 Stats by State -->
+      <!-- Creates Bar Chart for Math Stats by State -->
       <div class="row">
         <div class="col-md-12">
           <div id="bar1"></div>
         </div>
       </div>
-      <!-- 2017 Metadata -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="well">
-          <h5>SELECT State:</h5>
-          <select id="selDataset2" onchange="optionChanged(this.value)"></select>
-          </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Reading MetaData</h3>
@@ -88,7 +82,7 @@
           <div id="state-metadata2" class="panel-body"></div>
         </div>
       </div>
-    <!-- Creates Bar Chart for 2017 Stats by State -->
+    <!-- Creates Bar Chart for Reading Stats by State -->
     <div class="row">
       <div class="col-md-12">
         <div id="bar2"></div>
