@@ -66,7 +66,7 @@ def math_scores(state):
     results = db.session.query(*sel).filter(NationalScores.state == state).all()
 
     # Create a dictionary entry for each row of math data information
-    math = {}
+    math_scores = {}
     for result in results:
         NationalScores["state"] = result[0]
         NationalScores["gender"] = result[1]
@@ -95,7 +95,7 @@ def read_scores(state):
     results = db.session.query(*sel).filter(NationalScores.state == state).all()
 
     # Create a dictionary entry for each row of math data information
-    reading = {}
+    read_scores = {}
     for result in results:
         NationalScores["state"] = result[0]
         NationalScores["gender"] = result[1]
@@ -105,9 +105,10 @@ def read_scores(state):
     print(read_scores)
     return jsonify(read_scores)
 
-    @app.route("/combine/<state>")
-    def combine_scores(state):
-        """Return Math and Reading test scores for 2009 and 2017"""
+
+@app.route("/combine/<state>")
+def combine_scores(state):
+    """Return Math and Reading test scores for 2009 and 2017"""
 
     # perform the sql query for read test scores comparison
     # avg_2009_math, avg_2017_math, avg_2009_read, avg_2017_read
@@ -130,9 +131,7 @@ def read_scores(state):
         NationalScores["avg_2009_read"] = result[2]
         NationalScores["avg_2017_read"] = result[3]
 
-        print(combine_scores)
+    print(combine_scores)
     return jsonify(read_scores)
-
-
 if __name__ == "__main__":
     app.run()

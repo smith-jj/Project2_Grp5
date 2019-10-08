@@ -32,7 +32,7 @@
             <a class="nav-link" href="templates/index.html">Metadata</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="templates/addpgs/map.html">Map</a>
+            <a class="nav-link" href="templates/addpgs/choromap.html">Map</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="templates/addpgs/table.html">About Data</a>
@@ -47,47 +47,45 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>2009 vs 2017<br> 4th Grade Test Scores</h1>
-        <p>Explore the average math and reading test scores for 4th grade students by state.</p>
+        <h1>State Test Scores vs<br> National Average</h1>
+        <p>Explore the average math and reading test scores for 4th grade student in each state against the National Average.</p>
       </div>
     </div>
     </div>
   </div>
   <!-- Start Metadata Section -->
+
     <div class="row">
       <div class="col-md-4">
         <div class="well">
-        <!-- Select state that will update the Metadata and charts -->
           <h5>SELECT State:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <!-- Math  Metadata -->
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Math Scores MetaData</h3>
+            <h3 class="panel-title">Math MetaData</h3>
           </div>
-          <div id="math-score" class="panel-body"></div>
+          <div id="math-scores" class="panel-body"></div>
         </div>
       </div>
       <!-- Creates Chart for Math Stats by State -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
-          <div id="bar1"></div>
+          <div id="bar1"></div> -->
         </div>
       </div>
-        <div class="row">
-      <div class="col-md-4">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Reading Scores MetaData</h3>
+            <h3 class="panel-title">Reading MetaData</h3>
           </div>
-          <div id="read-score" class="panel-body"></div>
+          <div id="read-scores" class="panel-body"></div>
         </div>
       </div>
-    <!-- Creates Chart for Reading Scores by State -->
-    <div class="row">
+    <!-- Creates Chart for Reading Stats by State -->
+    <!-- <div class="row">
       <div class="col-md-12">
-        <div id="bar2"></div>
+        <div id="bar2"></div> -->
       </div>
     </div>
 

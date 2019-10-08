@@ -16,10 +16,24 @@
   <!-- Bootstrap Table CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- Script for Map -->
+
+    <!-- Choropleth CSS -->
+   <link href="/css/style.css" rel="stylesheet">
+
+    <!-- D3 geomap style sheet -->
+   <link href="/d3-geomap/d3-geomap.min.css" rel="stylesheet">
+
+    <!-- Script for Map 
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
+    
+    <!-- Cloudflare script 
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script> -->
+
+    <!-- TopoJson Script for map 
+    <script scr="http://d3js.org/topojson.v1.min.js"></script> -->
+
 
 </head>
 
@@ -37,7 +51,7 @@
             <a class="nav-link" href="templates/index.html">Metadata</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="templates/addpgs/map.html">Map</a>
+            <a class="nav-link" href="templates/addpgs/choromap.html">Map</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="templates/addpgs/table.html">About Data</a>
@@ -47,58 +61,10 @@
     </div>
   </nav>
 <!-- END NAVBAR-->
-<div class="container">
-    <!-- SVG for Chorpleth Map -->
-        <svg id="my_dataviz" width="700" height="500"></svg>
-    </div>
-</div>
 
-<script>
+<!-- Div to render map -->
+<div id="map" class="d3-geomap"></div>
 
-// The svg
-var svg = d3.select("svg"),
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
-
-// Map and projection
-var path = d3.geoPath();
-var projection = d3.geoMercator()
-  .scale(70)
-  .center([0,20])
-  .translate([width / 2, height / 2]);
-
-// Data and color scale
-var data = d3.map();
-var colorScale = d3.scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-  .range(d3.schemeBlues[7]);
-
-// Load external data and boot
-d3.queue()
-  .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-  .defer(d3.csv, "data/NationalScores.csv", function(d) { data.set(d.code, +d.pop); })
-  .await(ready);
-
-function ready(error, topo) {
-
-  // Draw the map
-  svg.append("g")
-    .selectAll("path")
-    .data(topo.features)
-    .enter()
-    .append("path")
-      // draw each country
-      .attr("d", d3.geoPath()
-        .projection(projection)
-      )
-      // set the color of each country
-      .attr("fill", function (d) {
-        d.total = data.get(d.id) || 0;
-        return colorScale(d.total);
-      });
-    }
-
-</script>
 <!--==========================
     Footer
   ============================-->
@@ -118,6 +84,22 @@ function ready(error, topo) {
     </div>
   </footer>
   <!-- END FOOTER -->
+
+    <!-- Script for Map -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/script.js"></script>
+
+    <!-- Topojson Scipt for map -->
+    <script src="//unpkg.com/d3@5.9.2/dist/d3.min.js"></script>
+    <script src="//unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+    <script src="/d3-geomap/d3-geomap.min.js"></script>
+
+    <!-- JS file for Choropleth map -->   
+    <script src="js/choromap.js"></script>
+
   </body>
 
 </html>
