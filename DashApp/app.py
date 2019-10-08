@@ -105,12 +105,7 @@ def read_scores(state):
     print(read_scores)
     return jsonify(read_scores)
 
-<<<<<<< Updated upstream:DashApp/app.py
-if __name__ == "__main__":
-    app.run()
-=======
-
-@app.route("/combine/<state>")
+    @app.route("/combine/<state>")
 def combine_scores(state):
     """Return Math and Reading test scores for 2009 and 2017"""
 
@@ -135,9 +130,9 @@ def combine_scores(state):
         NationalScores["avg_2009_read"] = result[2]
         NationalScores["avg_2017_read"] = result[3]
 
-    print(combine_scores)
+        print(combine_scores)
     return jsonify(read_scores)
+
+
 if __name__ == "__main__":
     app.run()
-
->>>>>>> Stashed changes:app.py

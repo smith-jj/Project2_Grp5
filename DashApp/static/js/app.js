@@ -1,9 +1,9 @@
 // Build functions to collect Metedata from app.py scrape of data for Math Scores 
-function buildMetadata(states) {
-    console.log(states);
+function buildMetadata(state) {
+    console.log(state);
 
     // Function that Builds the Metadata Panel
-    var PANEL = d3.select("#state-metadata1");
+    var PANEL = d3.select("#math_scores");
     // Use `d3.json` to Fetch the Metadata for a Sample
     d3.json(`/math/${states}`).then((data) => {
         // Use d3 to Select the Panel with id of `#sample-metadata`
@@ -21,7 +21,7 @@ function buildMetadata(states) {
 }
 
 // Following Function that Builds the Metadata Panel
-var PANEL = d3.select("#state-metadata2");
+var PANEL = d3.select("#read_scores");
 // Use `d3.json` to Fetch the Metadata for a Sample
 d3.json(`/read/${states}`).then((data) => {
     // Use d3 to Select the Panel with id of `#sample-metadata`
@@ -39,10 +39,10 @@ d3.json(`/read/${states}`).then((data) => {
 }
 
 // Bar graphs 
-function buildBar(dataname) {
+function buildCharts(state) {
 
     // @TODO: Use `d3.json` to Fetch the Route Data for the plot
-    d3.json(`/math/${dataname}`).then((data) => {
+    d3.json(`/math/${state}`).then((data) => {
                 // @TODO: Build a Bubble Chart Using the Sample Data
                 let bubbleLayout = {
                     margin: { t: 0 },
@@ -51,20 +51,20 @@ function buildBar(dataname) {
                 }
 
                 let bubbleData = [{
-                    x: data.ROUTEDATA,
-                    y: data.ROUTEDATA,
-                    text: data.ROUTEDATA,
+                    x: data.gender,
+                    y: data.math_scores,
+                    text: data.state,
                     mode: "markers",
                     marker: {
-                        size: data.ROUTEDATA,
-                        color: data.ROUTEDATA,
+                        size: data.math_scores,
+                        color: data.math_scores,
                         colorscale: "Earth"
                     }
                 }]
 
-                Plotly.plot("bar", bubbleData, bubbleLayout);
+                Plotly.plot("bubble", bubbleData, bubbleLayout);
                 // @TODO: Use `d3.json` to Fetch the Route Data for the plot
-                d3.json(`/math/${dataname}`).then((data) => {
+                d3.json(`/math/${state}`).then((data) => {
                             // @TODO: Build a Bubble Chart Using the Sample Data
                             let bubbleLayout = {
                                 margin: { t: 0 },
@@ -73,18 +73,18 @@ function buildBar(dataname) {
                             }
 
                             let bubbleData = [{
-                                x: data.ROUTEDATA,
-                                y: data.ROUTEDATA,
-                                text: data.ROUTEDATA,
+                                x: data.gender,
+                                y: data.read_scores,
+                                text: data.state,
                                 mode: "markers",
                                 marker: {
-                                    size: data.ROUTEDATA,
-                                    color: data.ROUTEDATA,
+                                    size: data.read_scores,
+                                    color: data.read_scores,
                                     colorscale: "Earth"
                                 }
                             }]
 
-                            Plotly.plot("bar", bubbleData, bubbleLayout);
+                            Plotly.plot("bubble", bubbleData, bubbleLayout);
 
                             //==============================================================================
                             // Code to initialize - EX Code from Belly Button HW - using select data to update the Metadata, pie chart and scatter
@@ -95,7 +95,7 @@ function buildBar(dataname) {
                                 var selector = d3.select("#selDataset");
 
                                 // Use the List of Sample Names to Populate the Select Options
-                                d3.json("/states").then((stateNames) => {
+                                d3.json("/state").then((stateNames) => {
                                     stateNames.forEach((state) => {
                                         selector
                                             .append("option")
