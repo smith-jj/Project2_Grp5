@@ -1,77 +1,82 @@
-var url_math_nat = "https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009"
-var url_math_pub = "https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NP,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009"
-var url_math_pri = "https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NR,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009"
+function buildCharts(state) {
 
-var dataMathNat = d3.json(url_math_nat).then(function(data) {
-    // console.log(data);
-    var objStr = JSON.stringify(data);
-    var obj = JSON.parse(objStr);
-    // console.log(obj)
-});
+     // Define SVG area dimensions
+var svgWidth = 200;
+var svgHeight = 200;
 
-console.log(dataMathNat);
+// Define the chart's margins as an object
+var chartMargin = {
+  top: 5,
+  right: 5,
+  bottom: 5,
+  left: 5
+};
 
-function convertArrayOfObjectsToCSV(args) {
-    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+// Define dimensions of the chart area
+var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
+var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
-    data = args.data || null;
-    if (data == null || !data.length) {
-        return null;
-    }
+// Select body, append SVG area to it, and set the dimensions
+var svg = d3.select("#bar1")
+  .append("svg")
+  .attr("height", svgHeight)
+  .attr("width", svgWidth);
 
-    columnDelimiter = args.columnDelimiter || ',';
-    lineDelimiter = args.lineDelimiter || '\n';
+// Append a group to the SVG area and shift ('translate') it to the right and to the bottom
+var chartGroup = svg.append("g")
+  .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
-    keys = Object.keys(data[0]);
+// Load data from hours-of-tv-watched.csv
+d3.csv(`/combine/${state}`, function(error, stateData) {
+  if (error) throw error;
 
-    result = '';
-    result += keys.join(columnDelimiter);
-    result += lineDelimiter;
+  //set up x and y list
+  var yearSubject = ["2009 Math", "2017 Math", "2009 Reading", "2017 Reading"]
+  var scores = [stateData.avg_2009_math, stateData.avg_2017_math, stateData.avg_2009_read, stateData.avg_2017_read] 
 
-    data.forEach(function(item) {
-        ctr = 0;
-        keys.forEach(function(key) {
-            if (ctr > 0) result += columnDelimiter;
+  // Cast the hours value to a number for each piece of tvData
+  scores.forEach(function(d) {
+    d.avg_2009_math = +d.avg_2009_math,
+    d.avg_2017_math = +d.avg_2017_math,
+    d.avg_2009_read = +d.avg_2009_read,
+    d.avg_2017_read = +d.avg_2017_read
+  });
 
-            result += item[key];
-            ctr++;
-        });
-        result += lineDelimiter;
-    });
+  // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
+  var xBandScale = d3.scaleBand()
+    .domain(yearSubject.length)
+    .range([0, chartWidth])
+    .padding(0.1);
 
-    return result;
-}
+  // Create a linear scale for the vertical axis.
+  var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(scores)])
+    .range([chartHeight, 0]);
 
-function downloadCSV(args) {
-    var data, filename, link;
+  // Create two new functions passing our scales in as arguments
+  // These will be used to create the chart's axes
+  var bottomAxis = d3.axisBottom(xBandScale);
+  var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
 
-    var csv = convertArrayOfObjectsToCSV({
-        data: dataMathNat
-    });
-    if (csv == null) return;
+  // Append two SVG group elements to the chartGroup area,
+  // and create the bottom and left axes inside of them
+  chartGroup.append("g")
+    .call(leftAxis);
 
-    filename = args.filename || 'export.csv';
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(bottomAxis);
 
-    if (!csv.match(/^data:text\/csv/i)) {
-        csv = 'data:text/csv;charset=utf-8,' + csv;
-    }
-    data = encodeURI(csv);
-
-    link = document.createElement('a');
-    link.setAttribute('href', data);
-    link.setAttribute('download', filename);
-    link.click();
-}
-
-// d3.json(url_math_nat).then(function(data) {
-//     stateResult = [];
-//     yearResult = [];
-//     for (var i = 0; i < data.result.length; i++) {
-//         var state = data.result[i].jurisdiction
-//         var year = data.result[i].focalYear
-//         stateResult.push(state);
-//         yearResult.push(year);
-//     };
-//     console.log(stateResult);
-//     console.log(yearResult);
-// });
+  // Create one SVG rectangle per piece of tvData
+  // Use the linear and band scales to position each rectangle within the chart
+  chartGroup.selectAll(".bar")
+    .data(stateData)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => xBandScale(d.yearSubject))
+    .attr("y", d => yLinearScale(d.scores))
+    .attr("width", xBandScale.bandwidth())
+    .attr("height", d => chartHeight - yLinearScale(d.scores));
+  });
+};

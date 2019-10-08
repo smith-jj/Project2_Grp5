@@ -11,8 +11,6 @@ from sqlalchemy import create_engine
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-
-
 app = Flask(__name__)
 
 
@@ -38,8 +36,8 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/state")
-def state():
+@app.route("/states")
+def states():
     """Return list of states"""
 
     # Use Pandas to perform the sql query of states
@@ -52,8 +50,8 @@ def state():
 
     # Return Jsonified data ()
 
-@app.route("/math/<state>")
-def math_score(state):
+@app.route("/math/<states>")
+def math_scores(states):
     """Return Math test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for math test scores comparison
@@ -61,36 +59,30 @@ def math_score(state):
     sel = [
         NationalScores.start_year,
         NationalScores.end_year,
-        NationalScores.subject,
-        NationalScores.grade,
         NationalScores.state,
         NationalScores.gender,
         NationalScores.avg_2009_math,
         NationalScores.avg_2017_math,
-        NationalScores.avg_math_perchg,
     ]
 
-    results = db.session.query(*sel).filter(NationalScores.state == state).all()
+    results = db.session.query(*sel).filter(NationalScores.state == states).all()
 
     # Create a dictionary entry for each row of math data information
-    math = {}
+    math_scores = {}
     for result in results:
         NationalScores["start_year"] = result[0]
         NationalScores["end_year"] = result[1]
-        NationalScores["subject"] = result[2]
-        NationalScores["grade"] = result[3]
         NationalScores["avg_2009_math"] = result[4]
         NationalScores["avg_2017_math"] = result[5]
-        NationalScores["avg_math_perchg"] = result[6]
 
-    print(math)
-    return jsonify(math)
+    print(math_scores)
+    return jsonify(math_scores)
 
     # Return Jsonified data ()
 
 
-@app.route("/read/<state>")
-def read_score(state):
+@app.route("/read/<states>")
+def read_scores(states):
     """Return Read test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for read test scores comparison
@@ -98,30 +90,54 @@ def read_score(state):
     sel = [
         NationalScores.start_year,
         NationalScores.end_year,
-        NationalScores.subject,
-        NationalScores.grade,
         NationalScores.state,
         NationalScores.gender,
         NationalScores.avg_2009_read,
         NationalScores.avg_2017_read,
-        NationalScores.avg_read_perchg,
     ]
 
-    results = db.session.query(*sel).filter(NationalScores.state == state).all()
+    results = db.session.query(*sel).filter(NationalScores.state == states).all()
 
     # Create a dictionary entry for each row of math data information
-    read = {}
+    read_scores = {}
     for result in results:
         NationalScores["start_year"] = result[0]
         NationalScores["end_year"] = result[1]
-        NationalScores["subject"] = result[2]
-        NationalScores["grade"] = result[3]
         NationalScores["avg_2009_read"] = result[4]
         NationalScores["avg_2017_read"] = result[5]
-        NationalScores["avg_read_perchg"] = result[6]
 
-    print(read)
-    return jsonify(read)
+    print(read_scores)
+    return jsonify(read_scores)
 
+
+@app.route("/combine/<states>")
+def combine_scores(states):
+    """Return Math and Reading test scores for 2009 and 2017 and percent change"""
+
+    # perform the sql query for read test scores comparison
+    # avg_2009_math, avg_2017_math, avg_2009_read, avg_2017_read
+    sel = [
+        NationalScores.start_year,
+        NationalScores.end_year,
+        NationalScores.state,
+        NationalScores.gender,
+        NationalScores.avg_2009_math,
+        NationalScores.avg_2017_math,
+        NationalScores.avg_2009_read,
+        NationalScores.avg_2017_read,
+    ]
+
+    results = db.session.query(*sel).filter(NationalScores.state == states).all()
+
+    # Create a dictionary entry for each row of math data information
+    combine_scores = {}
+    for result in results:
+        NationalScores["avg_2009_math"] = result[0]
+        NationalScores["avg_2017_math"] = result[1]
+        NationalScores["avg_2009_read"] = result[2]
+        NationalScores["avg_2017_read"] = result[3]
+
+    print(combine_scores)
+    return jsonify(read_scores)
 if __name__ == "__main__":
     app.run()
