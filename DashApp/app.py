@@ -36,29 +36,27 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/states")
-def states():
+@app.route("/state")
+def state():
     """Return list of states"""
 
     # Use Pandas to perform the sql query of states
     # Use Pandas to perform the sql query
-    stmt = db.session.query(NationalScores).statement
+    stmt = db.session.query(state).statement
     df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (sample names)
-    return jsonify(list(df.columns)[4:])
+    return jsonify(list(df.columns)[2:])
 
     # Return Jsonified data ()
 
-@app.route("/math/<states>")
-def math_scores(states):
-    """Return Math test scores for 2009 and 2017 and percent change"""
+@app.route("/math/<state>")
+def math_scores(state):
+    """Return Math test scores for 2009 and 2017"""
 
     # perform the sql query for math test scores comparison
     # avg_2009_math, avg_2017_math, avg_math_perchg
     sel = [
-        NationalScores.start_year,
-        NationalScores.end_year,
         NationalScores.state,
         NationalScores.gender,
         NationalScores.avg_2009_math,
@@ -70,10 +68,10 @@ def math_scores(states):
     # Create a dictionary entry for each row of math data information
     math = {}
     for result in results:
-        NationalScores["start_year"] = result[0]
-        NationalScores["end_year"] = result[1]
-        NationalScores["avg_2009_math"] = result[4]
-        NationalScores["avg_2017_math"] = result[5]
+        NationalScores["state"] = result[0]
+        NationalScores["gender"] = result[1]
+        NationalScores["avg_2009_math"] = result[2]
+        NationalScores["avg_2017_math"] = result[3]
 
     print(math_scores)
     return jsonify(math_scores)
@@ -81,15 +79,13 @@ def math_scores(states):
     # Return Jsonified data ()
 
 
-@app.route("/read/<states>")
-def read_scores(states):
-    """Return Read test scores for 2009 and 2017 and percent change"""
+@app.route("/read/<state>")
+def read_scores(state):
+    """Return Read test scores for 2009 and 2017"""
 
     # perform the sql query for read test scores comparison
     # avg_2009_read, avg_2017_read, avg_read_perchg
     sel = [
-        NationalScores.start_year,
-        NationalScores.end_year,
         NationalScores.state,
         NationalScores.gender,
         NationalScores.avg_2009_read,
@@ -101,13 +97,47 @@ def read_scores(states):
     # Create a dictionary entry for each row of math data information
     reading = {}
     for result in results:
-        NationalScores["start_year"] = result[0]
-        NationalScores["end_year"] = result[1]
-        NationalScores["avg_2009_read"] = result[4]
-        NationalScores["avg_2017_read"] = result[5]
+        NationalScores["state"] = result[0]
+        NationalScores["gender"] = result[1]
+        NationalScores["avg_2009_read"] = result[5]
+        NationalScores["avg_2017_read"] = result[6]
 
     print(read_scores)
     return jsonify(read_scores)
 
+<<<<<<< Updated upstream:DashApp/app.py
 if __name__ == "__main__":
     app.run()
+=======
+
+@app.route("/combine/<state>")
+def combine_scores(state):
+    """Return Math and Reading test scores for 2009 and 2017"""
+
+    # perform the sql query for read test scores comparison
+    # avg_2009_math, avg_2017_math, avg_2009_read, avg_2017_read
+    sel = [
+        NationalScores.state,
+        NationalScores.gender,
+        NationalScores.avg_2009_math,
+        NationalScores.avg_2017_math,
+        NationalScores.avg_2009_read,
+        NationalScores.avg_2017_read,
+    ]
+
+    results = db.session.query(*sel).filter(NationalScores.state == state).all()
+
+    # Create a dictionary entry for each row of math data information
+    combine_scores = {}
+    for result in results:
+        NationalScores["avg_2009_math"] = result[0]
+        NationalScores["avg_2017_math"] = result[1]
+        NationalScores["avg_2009_read"] = result[2]
+        NationalScores["avg_2017_read"] = result[3]
+
+    print(combine_scores)
+    return jsonify(read_scores)
+if __name__ == "__main__":
+    app.run()
+
+>>>>>>> Stashed changes:app.py
