@@ -8,6 +8,15 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
+import sqlite3 as sq
+
+conn = sq.connect('NationalReportCard.sqlite')
+
+Data = pd.read_csv('data/NationalScores.csv')
+
+Data.to_sql(name='NationalReportCard', con=conn,
+            if_exists='append', index=False)
+
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
