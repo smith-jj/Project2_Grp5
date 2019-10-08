@@ -106,8 +106,8 @@ def read_scores(state):
     return jsonify(read_scores)
 
     @app.route("/combine/<state>")
-def combine_scores(state):
-    """Return Math and Reading test scores for 2009 and 2017"""
+    def combine_scores(state):
+        """Return Math and Reading test scores for 2009 and 2017"""
 
     # perform the sql query for read test scores comparison
     # avg_2009_math, avg_2017_math, avg_2009_read, avg_2017_read
