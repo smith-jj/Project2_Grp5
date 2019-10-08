@@ -38,8 +38,8 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/states")
-def states():
+@app.route("/state")
+def state():
     """Return list of states"""
 
     # Use Pandas to perform the sql query of states
@@ -52,8 +52,8 @@ def states():
 
     # Return Jsonified data ()
 
-@app.route("/math/<states>")
-def male_scores(state):
+@app.route("/math/<state>")
+def math_score(state):
     """Return Math test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for math test scores comparison
@@ -84,13 +84,13 @@ def male_scores(state):
         NationalScores["avg_math_perchg"] = result[6]
 
     print(math)
-    return jsonify(sample_metadata)
+    return jsonify(math)
 
     # Return Jsonified data ()
 
 
-@app.route("/read/<states>")
-def male_scores(state):
+@app.route("/read/<state>")
+def read_score(state):
     """Return Read test scores for 2009 and 2017 and percent change"""
 
     # perform the sql query for read test scores comparison
@@ -110,7 +110,7 @@ def male_scores(state):
     results = db.session.query(*sel).filter(NationalScores.state == state).all()
 
     # Create a dictionary entry for each row of math data information
-    math = {}
+    read = {}
     for result in results:
         NationalScores["start_year"] = result[0]
         NationalScores["end_year"] = result[1]
@@ -120,8 +120,8 @@ def male_scores(state):
         NationalScores["avg_2017_read"] = result[5]
         NationalScores["avg_read_perchg"] = result[6]
 
-    print(math)
-    return jsonify(sample_metadata)
+    print(read)
+    return jsonify(read)
 
 if __name__ == "__main__":
     app.run()
