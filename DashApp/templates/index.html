@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project 2</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Bootstrap NavBar CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap NavBar CSS -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <!-- Bootstrap Table CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Project 2 | Group 5</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="templates/index.html">Metadata</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="templates/addpgs/map.html">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="templates/addpgs/table.html">About Data</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- END NAVBAR-->
+
+  <!-- START Webpage -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>State Test Scores vs<br> National Average</h1>
+        <p>Explore the average math and reading test scores for 4th grade student in each state against the National Average.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-- Start Metadata Section -->
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <h5>SELECT State:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div>
+        <!-- Math  Metadata -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Math MetaData</h3>
+          </div>
+          <div id="state-metadata1" class="panel-body"></div>
+        </div>
+      </div>
+      <!-- Creates Bar Chart for Math Stats by State -->
+      <div class="row">
+        <div class="col-md-12">
+          <div id="bar1"></div>
+        </div>
+      </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Reading MetaData</h3>
+          </div>
+          <div id="state-metadata2" class="panel-body"></div>
+        </div>
+      </div>
+    <!-- Creates Bar Chart for Reading Stats by State -->
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bar2"></div>
+      </div>
+    </div>
+
+  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+<!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+      </div>
+      <div class="credits">
+        <center>Project 2 designed by Group 5</center>
+      </div>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+</body>
+
+</html>
