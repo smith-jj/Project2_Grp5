@@ -8,9 +8,9 @@
     * sqlitle file for postgres connection of cleaned data 
 * data folder 
     * Holds clean csv files 
-* @TODO Flask App (app.py) 
-    * Connect to SQL database and call tables (see Jupter Notebook) 
-    * Use routes to call data from tables and store for app.js 
+* @TODO Flask App (app.py) (DONE)
+    * Connect to SQL database and call tables (see Jupter Notebook) (DONE)
+    * Use routes to call data from tables and store for app.js (DONE)
 * static folder
     * @TODO app.js holds functions to build charts 
     * style.css styling for index.html 
