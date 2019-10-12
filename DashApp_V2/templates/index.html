@@ -8,9 +8,20 @@
 
   <title>Home</title>
 
-  <!-- Bootstrap CSS Style For page-->
+  <!-- Bootstrap CSS Style For SelectData Tables -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+  <!-- Script for Scatter -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/d3Style.css">
 
 </head>
 
@@ -49,17 +60,15 @@
               </div>
             <div id="girlmath-metadata" class="panel-body"></div>
           </div>
-          </div>
-        <div class="col-md-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-             <h3 class="panel-title">Boy's Reading Scores</h3>
-          </div>
+        <div class="row">
+          <div class="column"></div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+              <h3 class="panel-title">Boy's Reading Scores</h3>
+            </div>
           <div id="boyreading-metadata" class="panel-body"></div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
+      <div class="column"></div>
           <div class="panel panel-primary">
            <div class="panel-heading">
              <h3 class="panel-title">Girl's Reading Scores</h3>
@@ -67,17 +76,46 @@
           <div id="girlreading-metadata" class="panel-body"></div>
         </div>
       </div>
-      </div>
     </div>
   </div>
+    </div>
 
+  <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <h1>D3 National Report Card</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12  col-md-9">
+          <div id="scatter">
+            <!-- We append our chart here. -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12  col-md-9">
+          <div class="article">
+            <h2>Correlations Between 2009 and 2017 National Scores</h2>
+            <p></p>
 
+            <p></p>
 
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Script for Flask App.js Function -->
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
+  <!-- Script Scatter Plot-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  <script type="text/javascript" src="static/js/scatter.js"></script>
 <!--==========================
     Footer
   ============================-->
