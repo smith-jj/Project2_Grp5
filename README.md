@@ -1,53 +1,15 @@
-# Project2_Grp5
-## JILL's branch 
+# FIFA Analysis
 
-### SEE DashApp_V2 folder 
+## Instructions
 
-# Dashboard 
-* db folder 
-    * sqlitle file for postgres connection of cleaned data 
-* data folder 
-    * Holds clean csv files 
-* @TODO Flask App (app.py) 
-    * Connect to SQL database and call tables (see Jupter Notebook) 
-    * Use routes to call data from tables and store for app.js 
-* static folder
-    * @TODO app.js holds functions to build charts 
-    * style.css styling for index.html 
-* template folder 
-    * index.html holds elements to render charts from functions built in app.js file under static folder  
+* Create a join between each of the charts so that each player's data is matched up correctly.
 
+* Create a pair of charts that compare the potential of a club's players to their overall ability (`Overall` column). Then sort them from best to worst.
 
-# API Calls & Clean 
-URLs for API calls of test data for 4th grade students in US. 
+* Create a chart that determines which soccer club is the most aggressive overall.
 
-## Math URLS - 4th Grade Boys & Girls Math Scores from 2009 and 2017
-* National Mean
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=mathematics&grade=4&subscale=MRPCM&variable=GENDER&jurisdiction=NT,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009
+* Create a chart that determines which nationality has the greatest acceleration on average, making sure to note how many players are from each nation in a second chart.
 
+* Create a chart that determines which nationality has the greatest long passing on average.
 
-## Reading URLS - 4th Grade Boys & Girls Reading Scores from 2009 and 2017
-* National Mean
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NT,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009
-
-* Public Schools Mean
-https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?type=sigacrossyear&subject=reading&grade=4&subscale=RRPCM&variable=GENDER&jurisdiction=NP,AL,AZ,AK,AR,CA,CO,CT,DE,DC,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,WY&stattype=MN:MN&Year=2017,2009
-
-### API URL LEGEND
-baseURL = https://www.nationsreportcard.gov/Dataservice/GetAdhocData.aspx?
-* type=sigacrossyear (changes between 2009 & 2017)
-* &subject=reading
-* &subject=mathematics
-* &grade=4
-* &subscale=RRPCM (reading)
-* &subscale=MWPCM (math)
-* &variable=GENDER
-* &jurisdiction=NT (National); &jurisdiction=NP (National public); &jurisdiction=NR (National private); (add states after juridicition)
-* &stattype=MN:MN (Mean)
-* &Year=2009, 2017
-
-Data cleaned using Jupyter Notebook
-Data transformed into sqlite db file using pandas in Jupyter Notebook
-
-
-
+* Create a chart that marks the potential of a player over time as they age.
