@@ -1,356 +1,358 @@
-// Build functions to collect Metedata from app.py scrape of data for Math Scores 
-// function buildMetadatamMath(states) {
-// Function that Builds the Metadata Panel
-var PANEL = d3.select("#math-scores");
-// Use `d3.json` to Fetch the Metadata for a Sample
-d3.json(`/math/${states}`).then((data) => {
-    // Use d3 to Select the Panel with id of `#sample-metadata`
-    // Use `.html("") to Clear any Existing Metadata
-    PANEL.html(" ");
-    // Use `Object.entries` to Add Each Key & Value Pair to the Panel
-    // Hint: Inside the Loop, Use d3 to Append New Tags for Each Key-Value in the Metadata
-    Object.entries(data).forEach(([key, value]) => {
-        PANEL.append("h6").text(`${key}:${value}`);
-    })
-});
-}
-// Build functions to collect Metedata from app.py scrape of data for Math Scores 
-function buildMetadatamRead(states) {
-    // Following Function that Builds the Metadata Panel
-    var PANEL = d3.select("#read-scores");
-    // Use `d3.json` to Fetch the Metadata for a Sample
-    d3.json(`/read/${states}`).then((data) => {
-        // Use d3 to Select the Panel with id of `#sample-metadata`
-        // Use `.html("") to Clear any Existing Metadata
-        PANEL.html(" ");
-        // Use `Object.entries` to Add Each Key & Value Pair to the Panel
-        // Hint: Inside the Loop, Use d3 to Append New Tags for Each Key-Value in the Metadata
-        Object.entries(data).forEach(([key, value]) => {
-            PANEL.append("h6").text(`${key}:${value}`);
-        })
-    });
-}
-
-function init() {
-    // Grab a Reference to the Dropdown Select Element
-    var selector = d3.select("#selDataset");
-    // Use the List of Sample Names to Populate the Select Options
-    d3.json("/states").then((stateNames) => {
-        stateNames.forEach((state) => {
-            selector
-                .append("option")
-                .text(state)
-                .property("value", state);
-        });
-        // Use the First Sample from the List to Build Initial Plots
-        const firstState = stateNames[0];
-        buildCharts(firstState);
-    });
-}
-
-function optionChanged(newState) {
-    // Fetch New Data Each Time a New Sample is Selected
-    buildCharts(newState);
-    buildMetadata(newState);
-}
-// Create Dynamic Scatter 
+// Created Dynamic Scatter plot
 function makeResponsive() {
-    var chartGroup = resizeCanvas();
 
-    d3.csv(".data/nationalScores.csv").then(function(data) {
+    // Create svg area for chart
+    var svgArea = d3.select("body").select("svg");
 
-        // transform the datatype
-        data.forEach(function(d) {
-
-            d.avg_2009_math = +d.avg_2009_math;
-            d.avg_2017_math = +d.avg_2017_math;
-            d.avg_2009_read = +d.avg_2009_read;
-            d.avg_2017_read = +d.avg_2017_read;
-
-        })
-        makeScatter(data, chartGroup);
-    })
-}
-var circles;
-
-function crGet() {
-    if (width <= 530) {
-        circles = 5;
-    } else {
-        circles = 10;
+    // Clear svg is Not Empty
+    if (!svgArea.empty()) {
+        svgArea.remove();
     }
-}
-// function make responsieve to window size
-function resizeCanvas() {
 
-    // clear original chart in case window size update
-    var svg = d3.select("#scatter").select("svg")
+    // Set svg dimensions 
+    var svgWidth = 880;
+    var svgHeight = 500;
 
-    if (!svg.empty()) { svg.remove(); };
-
-    svgHeight = window.innerHeight * 0.65;
-    svgWidth = window.innerWidth * 0.8;
-    margin = {
-
-        left: 100,
-        top: 100,
-        right: 150,
-        bottom: 100
+    // Set svg Margins
+    var margin = {
+        top: 20,
+        right: 40,
+        bottom: 90,
+        left: 100
     };
 
-    chartHeight = svgHeight - margin.top - margin.bottom
-    chartWidth = svgWidth - margin.left - margin.right
+    // Define dimensions for 
+    var width = svgWidth - margin.left - margin.right;
+    var height = svgHeight - margin.top - margin.bottom;
 
-    svg = d3.select("#scatter").append("svg")
-
-    .attr("height", svgHeight)
+    // Set svg Element/Wrapper - define plot type, append svg and dimensions 
+    var svg = d3
+        .select("#scatter")
+        .append("svg")
         .attr("width", svgWidth)
+        .attr("height", svgHeight);
 
-    // create new canvas, shifting the origin to center canvas
-    var chartGroup = svg.append("g")
+    function init() {
+        // Grab a Reference to the Dropdown Select Element
+        var selector = d3.select("#selDataset");
+        // Use the List of Sample Names to Populate the Select Options
+        d3.json("/states").then((stateNames) => {
+            stateNames.forEach((state) => {
+                selector
+                    .append("option")
+                    .text(state)
+                    .property("value", state);
+            });
+            // Use the First Sample from the List to Build Initial Plots
+            const firstState = stateNames[0];
+            buildCharts(firstState);
+        });
+    }
 
-    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    function optionChanged(newState) {
+        // Fetch New Data Each Time a New Sample is Selected
+        buildCharts(newState);
+        buildMetadata(newState);
+    }
+    // Create Dynamic Scatter 
+    function makeResponsive() {
+        var chartGroup = resizeCanvas();
 
-    return chartGroup;
+        d3.csv(".data/nationalScores.csv").then(function(data) {
 
-}
-// MAIN FUNCTION to make plot
-function makeScatter(data, chartGroup) {
+            // transform the datatype
+            data.forEach(function(d) {
 
-    // defalt chosenX,Y value 
-    var chosenX = "avg_2009_math";
-    var chosenY = "avg_2017_math"
-    var xScale = make_xScale(data, chosenX, chartWidth);
-    var yScale = make_yScale(data, chosenY, chartHeight);
-    var BottomAxis = d3.axisBottom(xScale)
-    var LeftAxis = d3.axisLeft(yScale)
+                d.avg_2009_math = +d.avg_2009_math;
+                d.avg_2017_math = +d.avg_2017_math;
+                d.avg_2009_read = +d.avg_2009_read;
+                d.avg_2017_read = +d.avg_2017_read;
 
-    // create the actual axis & ticks
-    var xAxis = chartGroup.append("g")
-        .attr("transform", `translate(0, ${chartHeight})`)
-        .call(BottomAxis)
+            })
+            makeScatter(data, chartGroup);
+        })
+    }
+    var circles;
 
-    var yAxis = chartGroup.append("g")
-        .call(LeftAxis)
-
-    // add circle-text Group
-    var elementGroup = chartGroup.selectAll("#circleTextGroup")
-
-    if (!elementGroup.empty) { elementGroup.remove() }
-
-    elementGroup = chartGroup.selectAll("#circleTextGroup")
-
-    .data(data)
-        .enter()
-        .append("g")
-        .attr("id", "circleTextGroup")
-
-
-    var circles = elementGroup
-        .append("circle")
-        .attr("cx", d => xScale(d[chosenX]))
-        .attr("cy", d => yScale(d[chosenY]))
-        .attr("r", 15)
-        .attr("fill", "powderblue")
-        .attr("opacity", "0.5");
-
-    var texts = elementGroup
-
-        .append("text")
-        .text(d => d.state)
-        .attr("text-anchor", "middle")
-        .attr("transform", d => `translate(${xScale(d[chosenX])} , ${yScale(d[chosenY])})`)
-        .attr("font-size", "11")
-        .attr("font-weight", "bold")
-        .attr("dy", "3");
-
-    // add labels
-    var xlabelGroup = chartGroup.append("g")
-    var ylabelGroup = chartGroup.append("g")
-
-    // xlabels
-
-    var mathLabel09 = xlabelGroup.append("text")
-        .attr("x", chartWidth / 2)
-        .attr("y", chartHeight + 50)
-        .attr("class", "active")
-        .attr("value", "avg_2009_math")
-        .text("avg_2009_math")
-
-
-    // ylables
-    var mathLabel17 = ylabelGroup.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -chartHeight / 2)
-        .attr("y", -40)
-        .attr("class", "active")
-        .attr("value", "avg_2017_math")
-        .text("avg_2017_math")
-
-
-
-    var circles = updateToolTip(chosenX, chosenY, circles);
-
-    var title = chartGroup.append("text")
-        .attr("id", "plot-title")
-        .attr("transform", `translate(${chartWidth / 2}, -20)`)
-        .attr("font-size", 36)
-        .attr("text-anchor", "middle")
-        .attr("font-weight", "bold")
-        .text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
-
-    // add text
-    var key = chosenX.concat("-", chosenY)
-
-    d3.select("#article")
-
-    .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
-        `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
-
-
-
-    // create on-click listening events function
-    xlabelGroup.selectAll("text").on("click", function() {
-
-        // get current label
-        var value = d3.select(this).attr("value")
-
-        if (value != `${chosenX}_label`) {
-
-            // console.log(value.slice(0, -6), `${chosenX}_label`)
-            chosenX = value.slice(0, -6);
-
-            // update x,y Scales
-            xScale = make_xScale(data, chosenX, chartWidth);
-            xAxis = renderXAxis(xScale, xAxis);
-
-            // update circle location and text 
-            renderCircles(circles, texts, xScale, chosenX, yScale, chosenY)
-
-            // update toolTip
-            circles = updateToolTip(chosenX, chosenY, circles);
-
-            // update labels' active & inactive class
-            xlabelGroup.selectAll("text")
-                .classed("active", false)
-                .classed("inactive", true)
-            d3.select(this).classed("inactive", false)
-                .classed("active", true)
-
-            // update title
-            d3.select("#plot-title").text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
-
-            // update text description
-            var key = chosenX.concat("-", chosenY)
-
-            d3.select("#article")
-                .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
-                    `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
+    function crGet() {
+        if (width <= 530) {
+            circles = 5;
+        } else {
+            circles = 10;
         }
-    })
+    }
+    // function make responsieve to window size
+    function resizeCanvas() {
 
-    ylabelGroup.selectAll("text").on("click", function() {
+        // clear original chart in case window size update
+        var svg = d3.select("#scatter").select("svg")
 
-        // get current y-label
-        var value = d3.select(this).attr("value");
+        if (!svg.empty()) { svg.remove(); };
 
-        if (value != `${chosenY}_label`) {
+        svgHeight = window.innerHeight * 0.65;
+        svgWidth = window.innerWidth * 0.8;
+        margin = {
 
-            // console.log(value.slice(0, -6), `${chosenY}_label`)
-            chosenY = value.slice(0, -6);
+            left: 100,
+            top: 100,
+            right: 150,
+            bottom: 100
+        };
 
-            // update x,y Scales
-            yScale = make_yScale(data, chosenY, chartHeight);
-            yAxis = renderYAxis(yScale, yAxis);
+        chartHeight = svgHeight - margin.top - margin.bottom
+        chartWidth = svgWidth - margin.left - margin.right
 
-            // update circle location and text 
-            renderCircles(circles, texts, xScale, chosenX, yScale, chosenY)
+        svg = d3.select("#scatter").append("svg")
 
-            // update toolTip
-            circles = updateToolTip(chosenX, chosenY, circles);
+        .attr("height", svgHeight)
+            .attr("width", svgWidth)
 
-            // update labels' active & inactive class
-            ylabelGroup.selectAll("text")
-                .classed("active", false)
-                .classed("inactive", true)
+        // create new canvas, shifting the origin to center canvas
+        var chartGroup = svg.append("g")
 
-            d3.select(this).classed("inactive", false)
-                .classed("active", true)
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
-            // update title
-            d3.select("#plot-title")
-                .html(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+        return chartGroup;
 
-            // update text description
-            var key = chosenX.concat("-", chosenY)
+    }
+    // MAIN FUNCTION to make plot
+    function makeScatter(data, chartGroup) {
 
-            d3.select("#article")
-                .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
-                    `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}`)
+        // defalt chosenX,Y value 
+        var chosenX = "avg_2009_math";
+        var chosenY = "avg_2017_math"
+        var xScale = make_xScale(data, chosenX, chartWidth);
+        var yScale = make_yScale(data, chosenY, chartHeight);
+        var BottomAxis = d3.axisBottom(xScale)
+        var LeftAxis = d3.axisLeft(yScale)
 
-        }
-    })
-}
-// add toolTip
-var toolTip = d3.selectAll(".tooltip")
+        // create the actual axis & ticks
+        var xAxis = chartGroup.append("g")
+            .attr("transform", `translate(0, ${chartHeight})`)
+            .call(BottomAxis)
 
-if (!toolTip.empty()) { toolTip.remove() }
+        var yAxis = chartGroup.append("g")
+            .call(LeftAxis)
 
-var toolTip = d3.select("#scatter")
-    .append("div")
-    .classed("tooltip", true)
+        // add circle-text Group
+        var elementGroup = chartGroup.selectAll("#circleTextGroup")
+
+        if (!elementGroup.empty) { elementGroup.remove() }
+
+        elementGroup = chartGroup.selectAll("#circleTextGroup")
+
+        .data(data)
+            .enter()
+            .append("g")
+            .attr("id", "circleTextGroup")
+
+
+        var circles = elementGroup
+            .append("circle")
+            .attr("cx", d => xScale(d[chosenX]))
+            .attr("cy", d => yScale(d[chosenY]))
+            .attr("r", 15)
+            .attr("fill", "powderblue")
+            .attr("opacity", "0.5");
+
+        var texts = elementGroup
+
+            .append("text")
+            .text(d => d.state)
+            .attr("text-anchor", "middle")
+            .attr("transform", d => `translate(${xScale(d[chosenX])} , ${yScale(d[chosenY])})`)
+            .attr("font-size", "11")
+            .attr("font-weight", "bold")
+            .attr("dy", "3");
+
+        // add labels
+        var xlabelGroup = chartGroup.append("g")
+        var ylabelGroup = chartGroup.append("g")
+
+        // xlabels
+
+        var mathLabel09 = xlabelGroup.append("text")
+            .attr("x", chartWidth / 2)
+            .attr("y", chartHeight + 50)
+            .attr("class", "active")
+            .attr("value", "avg_2009_math")
+            .text("avg_2009_math")
+
+
+        // ylables
+        var mathLabel17 = ylabelGroup.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -chartHeight / 2)
+            .attr("y", -40)
+            .attr("class", "active")
+            .attr("value", "avg_2017_math")
+            .text("avg_2017_math")
 
 
 
-// function to update xScale
-function make_xScale(data, chosenX, chartWidth) {
+        var circles = updateToolTip(chosenX, chosenY, circles);
 
-    var xScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[chosenX]) * 0.9, d3.max(data, d => d[chosenX]) * 1.05])
-        .range([0, +chartWidth]);
+        var title = chartGroup.append("text")
+            .attr("id", "plot-title")
+            .attr("transform", `translate(${chartWidth / 2}, -20)`)
+            .attr("font-size", 36)
+            .attr("text-anchor", "middle")
+            .attr("font-weight", "bold")
+            .text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
 
-    return xScale;
-}
+        // add text
+        var key = chosenX.concat("-", chosenY)
 
-// function to update yScale
-function make_yScale(data, chosenY, chartHeight) {
+        d3.select("#article")
 
-    var yScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[chosenY]) * 0.75, d3.max(data, d => d[chosenY]) * 1.05])
-        .range([chartHeight, 0]);
-    return yScale;
-}
+        .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
+            `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
 
-// function to render Axis transition
-function renderXAxis(newScale, xAxis) {
 
-    var BottomAxis = d3.axisBottom(newScale);
-    xAxis.transition().duration(1000).call(BottomAxis);
-    return xAxis;
-}
 
-function renderYAxis(newScale, yAxis) {
+        // create on-click listening events function
+        xlabelGroup.selectAll("text").on("click", function() {
 
-    var LeftAxis = d3.axisLeft(newScale);
-    yAxis.transition().duration(1000).call(LeftAxis);
-    return yAxis;
-}
+            // get current label
+            var value = d3.select(this).attr("value")
 
-// functino to render the circles
-function renderCircles(circles, texts, XScale, ChosenX, YScale, ChosenY) {
+            if (value != `${chosenX}_label`) {
 
-    circles.transition()
-        .duration(1000)
-        .attr("cx", d => XScale(d[ChosenX]))
-        .attr("cy", d => YScale(d[ChosenY]))
+                // console.log(value.slice(0, -6), `${chosenX}_label`)
+                chosenX = value.slice(0, -6);
 
-    texts.transition()
-        .duration(1000)
-        .attr("transform", d => `translate(${XScale(d[ChosenX])}, ${YScale(d[ChosenY])})`)
-    return circles;
-}
-// MAIN DRIVING COMMANDS
+                // update x,y Scales
+                xScale = make_xScale(data, chosenX, chartWidth);
+                xAxis = renderXAxis(xScale, xAxis);
 
-makeResponsive()
+                // update circle location and text 
+                renderCircles(circles, texts, xScale, chosenX, yScale, chosenY)
 
-d3.select(window).on("resize", makeResponsive);
+                // update toolTip
+                circles = updateToolTip(chosenX, chosenY, circles);
+
+                // update labels' active & inactive class
+                xlabelGroup.selectAll("text")
+                    .classed("active", false)
+                    .classed("inactive", true)
+                d3.select(this).classed("inactive", false)
+                    .classed("active", true)
+
+                // update title
+                d3.select("#plot-title").text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+
+                // update text description
+                var key = chosenX.concat("-", chosenY)
+
+                d3.select("#article")
+                    .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
+                        `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
+            }
+        })
+
+        ylabelGroup.selectAll("text").on("click", function() {
+
+            // get current y-label
+            var value = d3.select(this).attr("value");
+
+            if (value != `${chosenY}_label`) {
+
+                // console.log(value.slice(0, -6), `${chosenY}_label`)
+                chosenY = value.slice(0, -6);
+
+                // update x,y Scales
+                yScale = make_yScale(data, chosenY, chartHeight);
+                yAxis = renderYAxis(yScale, yAxis);
+
+                // update circle location and text 
+                renderCircles(circles, texts, xScale, chosenX, yScale, chosenY)
+
+                // update toolTip
+                circles = updateToolTip(chosenX, chosenY, circles);
+
+                // update labels' active & inactive class
+                ylabelGroup.selectAll("text")
+                    .classed("active", false)
+                    .classed("inactive", true)
+
+                d3.select(this).classed("inactive", false)
+                    .classed("active", true)
+
+                // update title
+                d3.select("#plot-title")
+                    .html(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+
+                // update text description
+                var key = chosenX.concat("-", chosenY)
+
+                d3.select("#article")
+                    .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` +
+                        `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}`)
+
+            }
+        })
+    }
+    // add toolTip
+    var toolTip = d3.selectAll(".tooltip")
+
+    if (!toolTip.empty()) { toolTip.remove() }
+
+    var toolTip = d3.select("#scatter")
+        .append("div")
+        .classed("tooltip", true)
+
+
+
+    // function to update xScale
+    function make_xScale(data, chosenX, chartWidth) {
+
+        var xScale = d3.scaleLinear()
+            .domain([d3.min(data, d => d[chosenX]) * 0.9, d3.max(data, d => d[chosenX]) * 1.05])
+            .range([0, +chartWidth]);
+
+        return xScale;
+    }
+
+    // function to update yScale
+    function make_yScale(data, chosenY, chartHeight) {
+
+        var yScale = d3.scaleLinear()
+            .domain([d3.min(data, d => d[chosenY]) * 0.75, d3.max(data, d => d[chosenY]) * 1.05])
+            .range([chartHeight, 0]);
+        return yScale;
+    }
+
+    // function to render Axis transition
+    function renderXAxis(newScale, xAxis) {
+
+        var BottomAxis = d3.axisBottom(newScale);
+        xAxis.transition().duration(1000).call(BottomAxis);
+        return xAxis;
+    }
+
+    function renderYAxis(newScale, yAxis) {
+
+        var LeftAxis = d3.axisLeft(newScale);
+        yAxis.transition().duration(1000).call(LeftAxis);
+        return yAxis;
+    }
+
+    // functino to render the circles
+    function renderCircles(circles, texts, XScale, ChosenX, YScale, ChosenY) {
+
+        circles.transition()
+            .duration(1000)
+            .attr("cx", d => XScale(d[ChosenX]))
+            .attr("cy", d => YScale(d[ChosenY]))
+
+        texts.transition()
+            .duration(1000)
+            .attr("transform", d => `translate(${XScale(d[ChosenX])}, ${YScale(d[ChosenY])})`)
+        return circles;
+    }
+    // MAIN DRIVING COMMANDS
+    // When Browser loads, makeResponsive() is Called
+    makeResponsive();
+
+    // When Browser Window is resized, makeResponsive() is Called
+    d3.select(window).on("resize", makeResponsive);
