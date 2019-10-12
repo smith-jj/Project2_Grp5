@@ -19,9 +19,6 @@
   <!-- Bootstrap CSS Style -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-  <!-- Boostrap CSS/CDN Bundle-->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -65,33 +62,39 @@
           <h5>SELECT STATE:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Boy's Math Scores</h3>
+        <div class="row">
+          <div class="col-md-8">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Boy's Math Scores</h3>
           </div>
           <div id="boymath-metadata" class="panel-body"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Gril's Math Scores</h3>
-          </div>
+        <div class="col-md-8">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Girl's Math Scores</h3>
+            </div>
           <div id="girlmath-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Boy's Reading Scores</h3>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+             <h3 class="panel-title">Boy's Reading Scores</h3>
           </div>
           <div id="boyreading-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Girl's Reading Scores</h3>
-          </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="panel panel-primary">
+           <div class="panel-heading">
+             <h3 class="panel-title">Girl's Reading Scores</h3>
+           </div>
           <div id="girlreading-metadata" class="panel-body"></div>
         </div>
       </div>
@@ -104,7 +107,7 @@
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='DashpApp_V2/static/js/app.js') }}"></script>
 
 <!--==========================
     Footer

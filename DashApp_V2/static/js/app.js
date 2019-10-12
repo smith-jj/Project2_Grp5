@@ -3,7 +3,7 @@
 
 // Boy's Math Scores 
 function buildBoysmath(state) {
-    d3.json(`/boymath/${state}`).then((bmData) => {
+    d3.json(`/boymath/${state}`).then((mdata) => {
         // Use d3 to select the panel with id of `#sample-metadata`
         var PANEL = d3.select("#boymath-metadata");
 
@@ -13,7 +13,7 @@ function buildBoysmath(state) {
         // Use `Object.entries` to add each key and value pair to the panel
         // Hint: Inside the loop, you will need to use d3 to append new
         // tags for each key-value in the metadata.
-        Object.entries(bmData).forEach(([key, value]) => {
+        Object.entries(mdata).forEach(([key, value]) => {
             PANEL.append("h6").text(`${key}: ${value}`);
         });
     });
@@ -21,7 +21,7 @@ function buildBoysmath(state) {
 
 // Girl's Math Scores 
 function buildGirlsmath(state) {
-    d3.json(`/girlmath/${state}`).then((gmData) => {
+    d3.json(`/girlmath/${state}`).then((mdata) => {
         // Use d3 to select the panel with id of `#girlmath-metadata`
         var PANEL = d3.select("#girlmath-metadata");
 
@@ -31,7 +31,7 @@ function buildGirlsmath(state) {
         // Use `Object.entries` to add each key and value pair to the panel
         // Hint: Inside the loop, you will need to use d3 to append new
         // tags for each key-value in the metadata.
-        Object.entries(gmData).forEach(([key, value]) => {
+        Object.entries(mdata).forEach(([key, value]) => {
             PANEL.append("h6").text(`${key}: ${value}`);
         });
     });
@@ -39,7 +39,7 @@ function buildGirlsmath(state) {
 
 // Boy's Reading Scores
 function buildBoysreading(state) {
-    d3.json(`/boyreading/${state}`).then((brData) => {
+    d3.json(`/boyreading/${state}`).then((rdata) => {
         // Use d3 to select the panel with id of `#boyreading-metadata`
         var PANEL = d3.select("#boyreading-metadata");
 
@@ -49,7 +49,7 @@ function buildBoysreading(state) {
         // Use `Object.entries` to add each key and value pair to the panel
         // Hint: Inside the loop, you will need to use d3 to append new
         // tags for each key-value in the metadata.
-        Object.entries(brData).forEach(([key, value]) => {
+        Object.entries(rdata).forEach(([key, value]) => {
             PANEL.append("h6").text(`${key}: ${value}`);
         });
     });
@@ -57,7 +57,7 @@ function buildBoysreading(state) {
 
 //Girl's Reading Scores 
 function buildGirlsreading(state) {
-    d3.json(`/girlreading/${state}`).then((grData) => {
+    d3.json(`/girlreading/${state}`).then((rdata) => {
         // Use d3 to select the panel with id of `#girlreading-metadata`
         var PANEL = d3.select("#girlreading-metadata");
 
@@ -67,18 +67,18 @@ function buildGirlsreading(state) {
         // Use `Object.entries` to add each key and value pair to the panel
         // Hint: Inside the loop, you will need to use d3 to append new
         // tags for each key-value in the metadata.
-        Object.entries(grData).forEach(([key, value]) => {
+        Object.entries(rdata).forEach(([key, value]) => {
             PANEL.append("h6").text(`${key}: ${value}`);
         });
     });
 }
 
 // Build Dynamic Scatter plots for each Metadata scetion 
-function buildCharts(state) {
+function buildMathChart(state) {
     d3.json(`/samples/${state}`).then((data) => {
-                const otu_ids = data.avg_2009_mathScores;
-                const otu_labels = data.oavg_2017_mathScores;
-                const sample_values = data.sample_values;
+                const year = data.avg_2009_mathScores;
+                const gender = data.gender;
+                const score_values = data.avg_2009_mathScores;
 
                 // Build a Bubble Chart
                 var bubbleLayout = {
@@ -87,13 +87,13 @@ function buildCharts(state) {
                     xaxis: { title: "OTU ID" }
                 };
                 var bubbleData = [{
-                    x: otu_ids,
-                    y: sample_values,
-                    text: otu_labels,
+                    x: year,
+                    y: score_values,
+                    text: gender,
                     mode: "markers",
                     marker: {
-                        size: sample_values,
-                        color: otu_ids,
+                        size: score_values,
+                        color: gender,
                         colorscale: "Earth"
                     }
                 }];
