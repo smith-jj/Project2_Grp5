@@ -2,48 +2,19 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <title>Home</title>
 
-  <title>Metadata</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
-
-  <!-- Bootstrap CSS Style -->
+  <!-- Bootstrap CSS Style For page-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
 </head>
 
 <body>
-  <!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Project 2 | Group 5</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="templates/index.html">Metadata</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="templates/addpgs/table.html">Data Table</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-<!-- END NAVBAR-->
-
   <!-- START Webpage -->
   <div class="container">
     <div class="row">
@@ -62,26 +33,24 @@
           <h5>SELECT STATE:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="row">
-          <div class="col-md-8">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Boy's Math Scores</h3>
-          </div>
-          <div id="boymath-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Girl's Math Scores</h3>
+
+       <div class="row">
+          <div class="column"></div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+               <h3 class="panel-title">Boy's Math Scores</h3>
+                </div>
+              <div id="boymath-metadata" class="panel-body"></div>
             </div>
-          <div id="girlmath-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
+          <div class="column"></div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Girl's Math Scores</h3>
+              </div>
+            <div id="girlmath-metadata" class="panel-body"></div>
+          </div>
+          </div>
+        <div class="col-md-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
              <h3 class="panel-title">Boy's Reading Scores</h3>
@@ -107,7 +76,7 @@
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="{{ url_for('static', filename='DashpApp_V2/static/js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 <!--==========================
     Footer
