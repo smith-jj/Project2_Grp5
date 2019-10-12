@@ -93,13 +93,13 @@ def boymath_gap():
     ]
 
     results = db.session.query(
-        *sel).filter(male_math.mathScores_precentChange).all()
+        *sel).all()
 
     # Create a dictionary entry for each row of math data information
     boymath_gap = {}
     for result in results:
-        boy_math_scores["state"] = result[0]
-        boy_math_scores["mathScores_precentChange"] = result[1]
+        boymath_gap["state"] = result[0]
+        boymath_gap["mathScores_precentChange"] = result[1]
 
    # Return Jsonified data ()
     print(boymath_gap)
@@ -150,8 +150,8 @@ def girlmath_gap():
     # Create a dictionary entry for each row of math data information
     girlmath_gap = {}
     for result in results:
-        girl_math_scores["state"] = result[0]
-        girl_math_scores["mathScores_precentChange"] = result[1]
+        girlmath_gap["state"] = result[0]
+        girlmath_gap["mathScores_precentChange"] = result[1]
 
    # Return Jsonified data ()
     print(girlmath_gap)
@@ -201,8 +201,8 @@ def boyreading_gap():
     # Create a dictionary entry for each row of math data information
     boyreading_gap = {}
     for result in results:
-        boy_reading_scores["state"] = result[0]
-        boy_reading_scores["readingScores_precentChange"] = result[1]
+        boyreading_gap["state"] = result[0]
+        boyreading_gap["readingScores_precentChange"] = result[1]
 
    # Return Jsonified data ()
     print(boyreading_gap)
@@ -253,9 +253,8 @@ def girlreading_gap():
     # Create a dictionary entry for each row of math data information
     girlreading_gap = {}
     for result in results:
-        girl_reading_scores["state"] = result[0]
-        girl_reading_scores["avg_2009_readingScores"] = result[1]
-        girl_reading_scores["avg_2017_readingScores"] = result[2]
+        girlreading_gap["state"] = result[0]
+        girlreading_gap["readingScores_precentChange"] = result[1]
 
    # Return Jsonified data ()
     print(girlreading_gap)
