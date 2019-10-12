@@ -71,64 +71,63 @@ function buildGirlsreading(state) {
             PANEL.append("h6").text(`${key}: ${value}`);
         });
     });
-}
-
-// Build Dynamic Scatter plots for each Metadata scetion 
+} // Build Dynamic Scatter plots for each Metadata scetion 
 function buildMathChart(state) {
     d3.json(`/samples/${state}`).then((data) => {
-                const year = data.avg_2009_mathScores;
-                const gender = data.gender;
-                const score_values = data.avg_2009_mathScores;
+            const year = data.avg_2009_mathScores;
+            const gender = data.gender;
+            const score_values = data.avg_2009_mathScores;
 
-                // Build a Bubble Chart
-                var bubbleLayout = {
-                    margin: { t: 0 },
-                    hovermode: "closest",
-                    xaxis: { title: "OTU ID" }
-                };
-                var bubbleData = [{
-                    x: year,
-                    y: score_values,
-                    text: gender,
-                    mode: "markers",
-                    marker: {
-                        size: score_values,
-                        color: gender,
-                        colorscale: "Earth"
-                    }
-                }];
+            // Build a Bubble Chart
+            var bubbleLayout = {
+                margin: { t: 0 },
+                hovermode: "closest",
+                xaxis: { title: "OTU ID" }
+            };
+            var bubbleData = [{
+                x: year,
+                y: score_values,
+                text: gender,
+                mode: "markers",
+                marker: {
+                    size: score_values,
+                    color: gender,
+                    colorscale: "Earth"
+                }
+            }];
 
-                Plotly.plot("bubble", bubbleData, bubbleLayout);
+            Plotly.plot("bubble", bubbleData, bubbleLayout);
 
-                function init() {
-                    // Grab a Reference to the Dropdown Select Element
-                    var selector = d3.select("#selDataset");
+            function init() {
+                // Grab a Reference to the Dropdown Select Element
+                var selector = d3.select("#selDataset");
 
-                    // Use the List of Sample Names to Populate the Select Options
-                    d3.json("/states").then((statesAbv) => {
-                        statesAbv.forEach((state) => {
-                            selector
-                                .append("option")
-                                .text(state)
-                                .property("value", state);
-                        });
-
-                        // Use the First Sample from the List to Build Initial Plots
-                        const firstState = statesAbv[0];
-                        buildBoysmath(firstState);
-                        buildGirlsmath(firstState);
-                        buildBoysreading(firstState);
-                        buildGirlsreading(firstState);
+                // Use the List of Sample Names to Populate the Select Options
+                d3.json("/states").then((statesAbv) => {
+                    statesAbv.forEach((state) => {
+                        selector
+                            .append("option")
+                            .text(state)
+                            .property("value", state);
                     });
-                }
+                });
 
-                function optionChanged(newState) {
-                    // Fetch New Data Each Time a New Sample is Selected
-                    buildBoysmath(newState);
-                    buildGirlsmath(newState);
-                    buildBoysreading(newState);
-                    buildGirlsreading(newState);
-                }
+                // Use the First Sample from the List to Build Initial Plots
+                const firstState = statesAbv[0];
+                buildBoysmath(firstState);
+                buildGirlsmath(firstState);
+                buildBoysreading(firstState);
+                buildGirlsreading(firstState);
+            });
+    }
 
-                // Initialize the Dashboard
-                init();
+    function optionChanged(newState) {
+        // Fetch New Data Each Time a New Sample is Selected
+        buildBoysmath(newState);
+        buildGirlsmath(newState);
+        buildBoysreading(newState);
+        buildGirlsreading(newState);
+    }
+
+    // Initialize the Dashboard
+    init();
