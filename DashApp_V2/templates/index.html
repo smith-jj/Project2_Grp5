@@ -25,8 +25,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
   <!-- Chart.JS Script -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 </head>
 
@@ -60,55 +60,46 @@
     <div class="row">
       <div class="col-md-12 jumbotron text-center" style="background-image: url('http://clipart-library.com/images/Lid5e7a7T.jpg');">
         <h1>Student Test Scores in America</h1>
-        <p>Explore the average math and reading test scores for 4th grade student in America.</p>
+        <p>Explore the average math and reading test scores for 4th grade student in each state.</p>
       </div>
     </div>
     </div>
   </div>
 
-  <!-- Start State Select for Data Section -->
-<div class="row">
-      <div class="col-md-2">
+  <!-- Chart JS Example -->
+  <div class="container">
+    <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+  <!-- Start Metadata Section -->
+    <!-- <div class="row">
+      <div class="col-md-4">
         <div class="well">
-          <h5>SELECT STATE:</h5>
+          <h5>SELECT State:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
-        <div class="col-md-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Boy's Math Scores</h3>
-          </div>
-          <div id="boymath-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Girl's Math Scores</h3>
-          </div>
-          <div id="girlmath-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <div class="col-md-8">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Boy's Reading Scores</h3>
-          </div>
-          <div id="boyreading-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      <div class="col-md-10">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Girl's Reading Scores</h3>
-          </div>
-          <div id="girlreading-metadata" class="panel-body"></div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-
+        </div> --> 
 
         <!-- Math  Charts -->
         <!-- <div class="panel panel-primary">
