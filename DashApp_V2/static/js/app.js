@@ -73,7 +73,6 @@ function buildGirlsreading(state) {
     });
 }
 
-
 function init() {
     // Grab a Reference to the Dropdown Select Element
     var selector = d3.select("#selDataset");

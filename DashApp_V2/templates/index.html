@@ -81,39 +81,10 @@
     </div>
   </div>
 
-<!-- Chart.js -->
-<h1>Simple Line Chart</h1>
-<!-- bar chart canvas element -->
-<canvas id="myChart" width="600" height="400"></canvas>
-<p id="caption">The chart is displaying a simple line chart.</p>
-
-
   <!-- D3 Scatter -->
-<div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <h1>D3 National Report Card</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12  col-md-9">
-          <div id="scatter">
-            <!-- We append our chart here. -->
-        </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12  col-md-9">
-          <div class="article">
-            <h2>Correlations Between 2009 and 2017 National Scores</h2>
-            <p></p>
+  <div id="plot"></div>
+  <script src="plots.js"></script>
 
-            <p></p>
-
-          </div>
-        </div>
-      </div>
-    </div> 
 
   <!-- Script for Flask App.js Function -->
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
@@ -121,10 +92,10 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
-  <!-- Script Scatter Plot-->
+  <!-- Script Scatter Plot
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
-  <script type="text/javascript" src="static/js/scatter.js"></script>
+  <script type="text/javascript" src="static/js/scatter.js"></script> -->
 <!--==========================
     Footer
   ============================-->
