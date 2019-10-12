@@ -39,10 +39,7 @@
             <a class="nav-link" href="templates/index.html">Metadata</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="templates/addpgs/map.html">Map</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="templates/addpgs/table.html">About Data</a>
+            <a class="nav-link" href="templates/addpgs/table.html">Data Table</a>
           </li>
         </ul>
       </div>
@@ -61,70 +58,46 @@
     </div>
   </div>
 
-  <!-- Chart JS Example -->
-  <div class="container">
-    <canvas id="myChart"></canvas>
-    </div>
-
-    <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-
-    // Configuration options go here
-    options: {}
-});
-</script>
-
-  <!-- Start Metadata Section -->
-    <!-- <div class="row">
-      <div class="col-md-4">
+  <!-- Start State Select for Data Section -->
+  <div class="row">
+      <div class="col-md-2">
         <div class="well">
-          <h5>SELECT State:</h5>
+          <h5>SELECT STATE:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div> --> 
-
-        <!-- Math  Charts -->
-        <!-- <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Math MetaData</h3>
-          </div>
-          <div id="math-scores" class="panel-body"></div>
         </div>
-      </div> -->
-
-      <!-- Creates Bar Chart for Math Stats by State -->
-      <!-- <div class="row">
-        <div class="col-md-12">
-          <div id="bar1"></div>
-        </div>
-      </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Reading MetaData</h3>
+            <h3 class="panel-title">Boy's Math Scores</h3>
           </div>
-          <div id="read-scores" class="panel-body"></div>
+          <div id="boymath-metadata" class="panel-body"></div>
         </div>
-      </div> --> 
-
-    <!-- Creates Bar Chart for Reading Stats by State -->
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <div id="bar2"></div>
       </div>
-    </div> --> 
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Gril's Math Scores</h3>
+          </div>
+          <div id="girlmath-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Boy's Reading Scores</h3>
+          </div>
+          <div id="boyreading-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Girl's Reading Scores</h3>
+          </div>
+          <div id="girlreading-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
