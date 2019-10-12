@@ -169,10 +169,9 @@ def girl_reading_scores(state):
 @app.route("/simple_chart")
 def chart():
     legend = 'Monthly Data'
-    labels = ["boy_math_scores", "girl_math_scores", "boy_reading_scores",
+    labels = ["Math Gap", "Reading Gap", "boy_reading_scores",
               "girl_reading_scores"]
-    values = ["boy_math_scores", "girl_math_scores", "boy_reading_scores",
-              "girl_reading_scores"]
+    values = ["state", "readingScores_precentChange", "mathScores_precentChange"]
     return render_template('chart.html', values=values, labels=labels, legend=legend)
 
 
