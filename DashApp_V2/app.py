@@ -166,5 +166,12 @@ def girl_reading_scores(state):
     return jsonify(girl_reading_scores)
 
 
+@app.route("/visuals")
+def visual():
+    """Return the visuals page."""
+    return render_template("Charts/chart.html")
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
