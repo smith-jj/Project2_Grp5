@@ -38,6 +38,24 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/chart")
+def chart():
+    """Return the homepage."""
+    return render_template("chart.html")
+
+
+@app.route("/mathtable")
+def mathtable():
+    """Return the homepage."""
+    return render_template("math.html")
+
+
+@app.route("/readtable")
+def readtable():
+    """Return the homepage."""
+    return render_template("read.html")
+
+
 @app.route("/state")
 def state():
     """Return a list of states."""
