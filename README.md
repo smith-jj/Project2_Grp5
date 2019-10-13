@@ -1,4 +1,6 @@
 # Project2_Grp5
+## To run Flask App in command prompt use $python app.py
+
 ### Heroku Link: https://salty-reaches-91530.herokuapp.com/
 * Not working, could not find log on Heroku Dashboard with failed/ error message 
 
@@ -22,20 +24,13 @@
         * style.css file contains styling for index.html
     * js folder
         * app.js - Javascript functions that will call data from the app.py file to render visuals for Metadata webpage
-        * chart.js for Chart.js bar graphs did not render on the index.html with the app.py flask was deployed, created separate webpage,see tempalets folder  
 * template folder
-    * Chart.js Visuals folder - interactive bar charts using cleaned data showing the percent change in test scores from all states 
-        * chart.html 
-        ### deploy on local server use $python -m http.server
-    * DataTables - uses jquerey to convert csv files into dynamic HTML tables 
-        * math.html - National Math Scores Data Table. 
-        ### To deploy use $python -m http.server 
-        * read.html - National Reading Scoes Data Table. 
-        ### To deploy use $python -m http.server 
-    * index.html - holds elements to render charts from functions built in app.js file 
+    * chart.html - Chart.js bar charts showing the percent change in test scores for all states by gender 
+    * math.html - National Math Scores Data Table. Uses jquery 
+    * read.html - National Reading Scoes Data Table. Uses jquery
+    * index.html - Metadata tables showing boys vs girls test scores for each subject 
 * Flask App (app.py)  
-    ### To run Flask App in command prompt use $python app.py
-    * created routes to call data from tables and store for app.js 
+    * routes to call data and html files 
 
 
 ## Source Data 
