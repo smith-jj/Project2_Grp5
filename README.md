@@ -1,5 +1,6 @@
 # Project2_Grp5
-### JILL's branch
+### Heroku Link: https://salty-reaches-91530.herokuapp.com/
+* Not working, could not find log on Heroku Dashboard with failed/ error message 
 
 ## DashApp_V2 folder 
 * data folder 
@@ -24,12 +25,16 @@
         * chart.js for Chart.js bar graphs did not render on the index.html with the app.py flask was deployed, created separate webpage,see tempalets folder  
 * template folder
     * Chart.js Visuals folder - interactive bar charts using cleaned data showing the percent change in test scores from all states 
-        * chart.html - deploy on local server use $python -m http.server
+        * chart.html 
+        ### deploy on local server use $python -m http.server
     * DataTables - uses jquerey to convert csv files into dynamic HTML tables 
-        * math.html - National Math Scores Data Table. To deploy use $python -m http.server 
-        * read.html - National Reading Scoes Data Table. To deploy use $python -m http.server 
+        * math.html - National Math Scores Data Table. 
+        ### To deploy use $python -m http.server 
+        * read.html - National Reading Scoes Data Table. 
+        ### To deploy use $python -m http.server 
     * index.html - holds elements to render charts from functions built in app.js file 
-* Flask App (app.py) - To run Flask App in command prompt use $python app.py
+* Flask App (app.py)  
+    ### To run Flask App in command prompt use $python app.py
     * created routes to call data from tables and store for app.js 
 
 
