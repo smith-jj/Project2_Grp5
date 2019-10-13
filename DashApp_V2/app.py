@@ -32,12 +32,10 @@ male_reading = Base.classes.male_reading
 female_reading = Base.classes.female_reading
 
 
-
 @app.route("/")
 def index():
     """Return the homepage."""
     return render_template("index.html")
-
 
 
 @app.route("/state")
@@ -48,10 +46,8 @@ def state():
     df = pd.read_sql_query(stmt, db.session.bind)
     state_list = list(df.state)
 
-
     # Return a list of the column states
     return jsonify(state_list)
-
 
 
 @app.route("/boymath/<state>")
@@ -112,7 +108,6 @@ def girl_math_scores(state):
     return jsonify(girl_math_scores)
 
 
-
 @app.route("/boyreading/<state>")
 def boy_reading_scores(state):
     """Return Boy's Reading Scores"""
@@ -169,6 +164,7 @@ def girl_reading_scores(state):
    # Return Jsonified data ()
     print(girl_reading_scores)
     return jsonify(girl_reading_scores)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
