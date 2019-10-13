@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title>Home</title>
+  <title>Metadata</title>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+  <!-- Chart.js 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script> -->
 
   <!-- Bootstrap CSS Style For SelectData Tables -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,11 +31,18 @@
 
 <body>
   <!-- START Webpage -->
+  <div class="topnav">
+  <a class="active" href="#home">Metadata</a>
+  <a href="#news">Visuals</a>
+  <a href="#contact">Math Table</a>
+  <a href="#about">Reading Table</a>
+  </div>
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center" style="background-image: url('http://clipart-library.com/images/Lid5e7a7T.jpg');">
-        <h1>Student Test Scores in America</h1>
-        <p>Explore the average math and reading test scores for 4th grade student in each state.</p>
+        <h1>Student Test Scores Metadata</h1>
+        <p>Explore the average math scores, average reading test scores, and the difference in test for 4th grade student in each state from 2009 & 2017.</p>
       </div>
     </div>
     </div>
@@ -87,26 +95,28 @@
 
   <!--  Chart.js Visuals -->
   <!-- Chart Gap Boy's Math Scores by State -->
-  <h2><center>Percent Change in Boy's Math Score from 2009 to 2017 (by state)</center></h2>
+ <!-- <h2><center>Percent Change in Boy's Math Score from 2009 to 2017 (by state)</center></h2>
   <canvas id="mmChart" width="200" height="50"></canvas> <br/>
   
   <!-- Chart Gap Girl's Math Scores by State -->
-  <h2><center>Percent Change in Girl's Math Score from 2009 to 2017 (by state)</center></h2>
+ <!-- <h2><center>Percent Change in Girl's Math Score from 2009 to 2017 (by state)</center></h2>
   <canvas id="fmChart" width="200" height="50"></canvas> <br/>
   
   <!-- Chart Gap Boy's Reading Scores by State -->
-  <h2><center>Percent Change in Boy's Reading Score from 2009 to 2017 (by state)</center></h2>
+ <!-- <h2><center>Percent Change in Boy's Reading Score from 2009 to 2017 (by state)</center></h2>
   <canvas id="mrChart" width="200" height="50"></canvas> <br/>
   
   <!-- Chart Gap Girl's Reading Scores by State -->
-  <h2><center>Percent Change in Girl's Reading Score from 2009 to 2017 (by state)</center></h2>
-  <canvas id="frChart" width="200" height="50"></canvas> <br/>
+ <!-- <h2><center>Percent Change in Girl's Reading Score from 2009 to 2017 (by state)</center></h2>
+  <canvas id="frChart" width="200" height="50"></canvas> <br/> -->
 
-  <!-- Script for Flask App.js Function -->
+  <!-- Script for Flask App.js & Chart.js -->
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <!-- Chart.js not pulling making into seprate page 
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script> -->
 
 <!--==========================
     Footer

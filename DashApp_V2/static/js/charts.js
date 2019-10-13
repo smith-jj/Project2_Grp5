@@ -1,4 +1,3 @@
-//Chart.js script
 // Global X and y variables for Boy's Math Chart
 const xmmlabels = [];
 const ymmgap = [];

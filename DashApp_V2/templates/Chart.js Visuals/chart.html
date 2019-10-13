@@ -11,7 +11,7 @@
 
   </head>
   <body>
-
+ 
   <!-- Chart Gap Boy's Math Scores by State -->
   <h2><center>Percent Change in Boy's Math Score from 2009 to 2017 (by state)</center></h2>
   <canvas id="mmChart" width="200" height="50"></canvas>
@@ -29,27 +29,36 @@
   <canvas id="frChart" width="200" height="50"></canvas>
 
   <script>
+
     // Global X and y variables for Boy's Math Chart
     const xmmlabels = [];
     const ymmgap = [];
+
     // Global x and y variables for Girl's Math chart 
     const xfmlabels = [];
     const yfmgap = [];
+
     // Global x and y variables for Boy's Reading Chart 
     const xmrlabels = [];
     const ymrgap = [];
+
     // Global x nad y variables for Girl's Reading Chart 
     const xfrlabels = [];
     const yfrgap = [];
 
+
     // Call Boy's Math Chart  
     chartMM();
+
     // Call Girl's Math Chart
     chartFM();
+
     // Call Boy's Reading Chart
     chartMR();
+
     // Call Girl's Reading Chart
     chartFR();
+
 
     // Function to create Boy's Math Chart from CSV
     async function chartMM() {
